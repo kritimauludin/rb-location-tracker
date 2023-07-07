@@ -13,13 +13,16 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
         \App\Models\Role::factory()->create([
-            'role_name' => 'superadmin'
+            'role_name' => 'Superadmin'
         ]);
         \App\Models\Role::factory()->create([
-            'role_name' => 'admin'
+            'role_name' => 'Admin'
         ]);
         \App\Models\Role::factory()->create([
-            'role_name' => 'kurir'
+            'role_name' => 'Kurir'
+        ]);
+        \App\Models\Role::factory()->create([
+            'role_name' => 'Menunggu Promote Admin'
         ]);
     }
 }
