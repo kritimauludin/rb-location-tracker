@@ -23,7 +23,7 @@
                                     <div class="form-group mb-3">
                                         <input type="text" id="customer_code" name="customer_code"
                                             @error('customer_code') is-invalid @enderror placeholder="Kode pelanggan (auto)"
-                                            value="{{ old('customer_code') }}" readonly class="form-control">
+                                            value="{{ old('customer_code') }}" readonly class="form-control" required>
                                         @error('customer_code')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -31,7 +31,7 @@
                                     <div class="form-group mb-3">
                                         <input type="text" id="customer_name" name="customer_name"
                                             @error('customer_name') is-invalid @enderror placeholder="Nama pelanggan"
-                                            value="{{ old('customer_name') }}" autofocus class="form-control">
+                                            value="{{ old('customer_name') }}" autofocus class="form-control" required>
                                         @error('customer_name')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -39,8 +39,16 @@
                                     <div class="form-group mb-3">
                                         <input type="email" id="email" name="email"
                                             @error('email') is-invalid @enderror placeholder="Email pelanggan"
-                                            value="{{ old('email') }}" class="form-control">
+                                            value="{{ old('email') }}" class="form-control" required>
                                         @error('email')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <input type="number" id="phone_number" name="phone_number"
+                                            @error('phone_number') is-invalid @enderror placeholder="Nomor telepon pelanggan"
+                                            value="{{ old('phone_number') }}" class="form-control" required>
+                                        @error('phone_number')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
@@ -50,7 +58,7 @@
                                             <div class="col-sm-9">
                                                 <input type="date" id="join_date" name="join_date"
                                                     @error('join_date') is-invalid @enderror placeholder="Tgl Join"
-                                                    value="{{ old('join_date') }}" class="form-control">
+                                                    value="{{ old('join_date') }}" class="form-control" required>
                                                 @error('join_date')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
@@ -62,23 +70,39 @@
                                             <label for="inputDate" class="col-sm-3 col-form-label">Tgl.
                                                 Expire</label>
                                             <div class="col-sm-9">
-                                                <input type="date" id="tgl_expire" name="tgl_expire"
-                                                    @error('tgl_expire') is-invalid @enderror placeholder="Tgl Join"
-                                                    value="{{ old('tgl_expire') }}" class="form-control">
-                                                @error('tgl_expire')
+                                                <input type="date" id="expire_date" name="expire_date"
+                                                    @error('expire_date') is-invalid @enderror placeholder="Tgl Join"
+                                                    value="{{ old('expire_date') }}" class="form-control" required>
+                                                @error('expire_date')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="form-group mb-3">
+                                        <input type="text" id="latitude" name="latitude"
+                                            @error('latitude') is-invalid @enderror placeholder="Titik latitude (auto)"
+                                            value="{{ old('latitude') }}" readonly class="form-control" required>
+                                        @error('latitude')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <input type="text" id="longitude" name="longitude"
+                                            @error('longitude') is-invalid @enderror placeholder="Titik longitude (auto)"
+                                            value="{{ old('longitude') }}" readonly class="form-control" required>
+                                        @error('longitude')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+                                    </div>
                                 </div>
                                 <div class="col-lg-8">
-                                    <input id="search-address" style="width: 50%; margin-top: 10px;" class="form-control"
+                                    <input id="address" style="width: 50%; margin-top: 10px;" class="form-control"
                                         type="text" placeholder="Tulis nama jalan / gedung / perumahan" required>
                                     <div id="map" style="height: 500px; border-radius: 25px;"></div>
                                     <script>
 
-                                        //maps
+                                        //maps binder function
                                         function initAutocomplete() {
                                             var map = new google.maps.Map(document.getElementById('map'), {
                                                 center: {
@@ -90,7 +114,7 @@
                                             });
 
                                             // Membuat Kotak pencarian terhubung dengan tampilan map
-                                            var input = document.getElementById('search-address');
+                                            var input = document.getElementById('address');
                                             var searchBox = new google.maps.places.SearchBox(input);
                                             map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
@@ -146,7 +170,9 @@
                                                         bounds.extend(place.geometry.location);
                                                     }
 
-                                                    // console.log(place);
+                                                    console.log(place);
+                                                    $('#latitude').val(place.geometry.location.lat());
+                                                    $('#longitude').val(place.geometry.location.lng());
                                                     for (var i = 0; i < place.address_components.length; i++) {
                                                         for (var j = 0; j < place.address_components[i].types.length; j++) {
                                                             // set postal code

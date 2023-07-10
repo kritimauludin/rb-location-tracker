@@ -16,10 +16,9 @@ return new class extends Migration
             $table->string('customer_code', 100)->unique();
             $table->string('customer_name', 100);
             $table->string('email')->unique();
+            $table->string('phone_number', 14);
             $table->date('join_date');
             $table->date('expire_date');
-            $table->integer('city_code');
-            $table->integer('subdistrict_code');
             $table->text('address');
             $table->string('latitude');
             $table->string('longitude');
