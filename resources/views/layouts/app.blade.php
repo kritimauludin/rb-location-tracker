@@ -1,69 +1,3 @@
-<!doctype html>
-
-<body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </div>
-</body>
-
-</html>
-
-
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
@@ -77,7 +11,7 @@
     <title>{{ config('app.name', 'Radar Bogor') }}</title>
 
     <!-- Favicons -->
-    <link href="{{ asset('assets') }}/img/favicon.png" rel="icon">
+    <link href="{{ asset('assets') }}/img/favicon.webp" rel="icon">
     <link href="{{ asset('assets') }}/img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
@@ -98,10 +32,21 @@
     <!-- Template Main CSS File -->
     <link href="{{ asset('assets') }}/css/style.css" rel="stylesheet">
 
+    <!-- leaflet CSS -->
+    <link
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      rel="stylesheet"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      crossorigin=""
+    />
+
+    {{-- jquery --}}
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
-    @auth
+    @if (Auth::check() && Auth::user()->email_verified_at != null)
         <!-- ======= Header ======= -->
         <header id="header" class="header fixed-top d-flex align-items-center">
 
@@ -317,10 +262,15 @@
                             </li>
 
                             <li>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
                                     <i class="bi bi-box-arrow-right"></i>
-                                    <span>Sign Out</span>
+                                    <span> {{ __('Logout') }}</span>
                                 </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
                             </li>
 
                         </ul><!-- End Profile Dropdown Items -->
@@ -337,91 +287,51 @@
             <ul class="sidebar-nav" id="sidebar-nav">
 
                 <li class="nav-item">
-                    <a class="nav-link " href="index.html">
+                    <a class="nav-link @if (Route::has('home')) active @endif" href="{{route('home')}}">
                         <i class="bi bi-grid"></i>
                         <span>Dashboard</span>
                     </a>
                 </li><!-- End Dashboard Nav -->
 
                 <li class="nav-item">
-                    <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse"
+                    <a class="nav-link collapsed" data-bs-target="#users-nav" data-bs-toggle="collapse"
                         href="#">
-                        <i class="bi bi-menu-button-wide"></i><span>Components</span><i
+                        <i class="bi bi-menu-button-wide"></i><span>Pengguna App</span><i
                             class="bi bi-chevron-down ms-auto"></i>
                     </a>
-                    <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <ul id="users-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                         <li>
-                            <a href="components-alerts.html">
-                                <i class="bi bi-circle"></i><span>Alerts</span>
+                            <a href="users-alerts.html">
+                                <i class="bi bi-circle"></i><span>Lihat Pengguna</span>
                             </a>
                         </li>
                         <li>
-                            <a href="components-accordion.html">
-                                <i class="bi bi-circle"></i><span>Accordion</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="components-badges.html">
-                                <i class="bi bi-circle"></i><span>Badges</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="components-breadcrumbs.html">
-                                <i class="bi bi-circle"></i><span>Breadcrumbs</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="components-buttons.html">
-                                <i class="bi bi-circle"></i><span>Buttons</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="components-cards.html">
-                                <i class="bi bi-circle"></i><span>Cards</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="components-carousel.html">
-                                <i class="bi bi-circle"></i><span>Carousel</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="components-list-group.html">
-                                <i class="bi bi-circle"></i><span>List group</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="components-modal.html">
-                                <i class="bi bi-circle"></i><span>Modal</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="components-tabs.html">
-                                <i class="bi bi-circle"></i><span>Tabs</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="components-pagination.html">
-                                <i class="bi bi-circle"></i><span>Pagination</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="components-progress.html">
-                                <i class="bi bi-circle"></i><span>Progress</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="components-spinners.html">
-                                <i class="bi bi-circle"></i><span>Spinners</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="components-tooltips.html">
-                                <i class="bi bi-circle"></i><span>Tooltips</span>
+                            <a href="users-accordion.html">
+                                <i class="bi bi-circle"></i><span>Tambah Pengguna</span>
                             </a>
                         </li>
                     </ul>
-                </li><!-- End Components Nav -->
+                </li><!-- End users Nav -->
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#customers-nav" data-bs-toggle="collapse"
+                        href="{{route('customer.index')}}">
+                        <i class="bi bi-person-square"></i><span>Data Pelanggan</span><i
+                            class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="customers-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a href="{{route('customer.index')}}">
+                                <i class="bi bi-circle"></i><span>Lihat Pelanggan</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('customer.create')}}">
+                                <i class="bi bi-circle"></i><span>Tambah Pelanggan</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li><!-- End customers Nav -->
 
                 <li class="nav-item">
                     <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
@@ -539,40 +449,12 @@
                     </a>
                 </li><!-- End Contact Page Nav -->
 
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="pages-register.html">
-                        <i class="bi bi-card-list"></i>
-                        <span>Register</span>
-                    </a>
-                </li><!-- End Register Page Nav -->
-
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="pages-login.html">
-                        <i class="bi bi-box-arrow-in-right"></i>
-                        <span>Login</span>
-                    </a>
-                </li><!-- End Login Page Nav -->
-
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="pages-error-404.html">
-                        <i class="bi bi-dash-circle"></i>
-                        <span>Error 404</span>
-                    </a>
-                </li><!-- End Error 404 Page Nav -->
-
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="pages-blank.html">
-                        <i class="bi bi-file-earmark"></i>
-                        <span>Blank</span>
-                    </a>
-                </li><!-- End Blank Page Nav -->
-
             </ul>
 
         </aside><!-- End Sidebar-->
-    @endauth
+    @endif
 
-    <main @auth id="main" class="main" @endauth>
+    <main @if (Auth::check() && Auth::user()->email_verified_at != null) id="main" class="main" @endif>
         <div class="container">
 
             @yield('content')

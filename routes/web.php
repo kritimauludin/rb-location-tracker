@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AjaxRequestController;
+use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -23,3 +25,7 @@ Auth::routes([
 ]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
+
+Route::resource('customer', CustomerController::class)->middleware('auth');
+
+Route::get('/getnewcode', [AjaxRequestController::class, 'getNewCode'])->middleware('auth');
