@@ -301,7 +301,7 @@
                     </a>
                     <ul id="users-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                         <li>
-                            <a href="users-alerts.html">
+                            <a href="/user">
                                 <i class="bi bi-circle"></i><span>Lihat Pengguna</span>
                             </a>
                         </li>

@@ -33,7 +33,21 @@ class CustomerController extends Controller
      */
     public function store(StoreCustomerRequest $request)
     {
-        //
+        $validCustomer = $request->validate([
+            'customer_code' => 'required',
+            'customer_name' => 'required',
+            'email' => 'required|email:dns|unique:customers',
+            'phone_number' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
+            'join_date' => 'required',
+            'expire_date' => 'required',
+            'address' => 'required',
+            'latitude' => 'required',
+            'longitude' => 'required',
+        ]);
+
+        Customer::create($validCustomer);
+
+        return redirect('/customer')->with('success', 'Pelanggan berhasil ditambahkan !');
     }
 
     /**

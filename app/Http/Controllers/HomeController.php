@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +24,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $customers = Customer::select('customer_name', 'join_date', 'expire_date', 'latitude', 'longitude', 'updated_at')->get();
+        $totalCustomer = count($customers);
+        // dd($customers);
+        return view('home', [
+            'customers' => $customers,
+            'totalCustomers' => $totalCustomer
+        ]);
     }
 }

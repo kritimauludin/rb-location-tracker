@@ -17,7 +17,8 @@
                         <h5 class="card-title">Tambah Pelanggan</h5>
 
                         <!-- General Form Elements -->
-                        <form>
+                        <form action="/customer" method="POST" enctype="multipart/form-data">
+                            @csrf
                             <div class="row">
                                 <div class="col-lg-4">
                                     <div class="form-group mb-3">
@@ -97,7 +98,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-8">
-                                    <input id="address" style="width: 50%; margin-top: 10px;" class="form-control"
+                                    <input id="address" name="address" style="width: 50%; margin-top: 10px;" class="form-control"
                                         type="text" placeholder="Tulis nama jalan / gedung / perumahan" required>
                                     <div id="map" style="height: 500px; border-radius: 25px;"></div>
                                     <script>
@@ -203,7 +204,7 @@
                             <div class="row mt-5">
                                 <div class="col-sm-12 text-center">
                                     <button class="btn btn-outline-primary" type="submit">Kirim</button>
-                                    <a href="#" class="btn btn-outline-danger">Kembali</a>
+                                    <a href="/customer" class="btn btn-outline-danger">Kembali</a>
                                 </div>
                             </div>
 
