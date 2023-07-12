@@ -9,7 +9,7 @@ class UserController extends Controller
 {
     public function index(){
         $users = User::where('role_id', '!=', '1')->get();
-        return view('users', [
+        return view('user.users', [
             'users' => $users
         ]);
     }

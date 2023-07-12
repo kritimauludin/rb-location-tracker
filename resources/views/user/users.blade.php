@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="pagetitle">
-        <h1>Customers</h1>
+        <h1>Users</h1>
         <hr>
     </div><!-- End Page Title -->
 
@@ -12,7 +12,7 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Data Pelanggan</h5>
+                        <h5 class="card-title">Data Pengguna</h5>
                         <a href="/customer/create" class="text-right position-absolute end-0 top-0 m-4 h3"> <i
                                 class="bi bi-person-plus m-1"></i></a>
 
@@ -32,40 +32,29 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">#</th>
-                                        <th scope="col">Kode Pelanggan</th>
-                                        <th scope="col">Nama Pelanggan</th>
+                                        <th scope="col">Kode Pengguna</th>
+                                        <th scope="col">Nama Pengguna</th>
                                         <th scope="col">Email</th>
-                                        <th scope="col">Tgl. Join</th>
-                                        <th scope="col">Tgl. Expire</th>
-                                        <th scope="col">Status</th>
+                                        <th scope="col">Tgl. Terdaftar</th>
+                                        <th scope="col">Role</th>
                                         <th scope="col">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($customers as $customer)
+                                    @foreach ($users as $user)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
-                                            <td>{{ $customer->customer_code }}</td>
-                                            <td>{{ $customer->customer_name }}</td>
-                                            <td>{{ $customer->email }}</td>
-                                            <td>{{ $customer->join_date }}</td>
-                                            <td>{{ $customer->expire_date }}</td>
+                                            <td>{{ $user->user_code }}</td>
+                                            <td>{{ $user->name }}</td>
+                                            <td>{{ $user->email }}</td>
+                                            <td>{{ $user->created_at }}</td>
                                             <td>
-                                                @if (now()->lt($customer->expire_date))
-                                                    <span class="badge badge-sm bg-success">Aktif</span>
-                                                @else
-                                                    <span class="badge badge-sm bg-danger">Nonaktif</span>
-                                                @endif
+                                                {{$user->role->role_name}}
                                             </td>
                                             <td>
                                                 <a href=""> <i class="bi bi-eye m-1"></i></a>
-                                                <a href="/customer/{{$customer->customer_code}}/edit"> <i class="bi bi-pen m-1"></i></a>
-                                                <form action="/customer/{{ $customer->customer_code }}" method="POST" class="d-inline">
-                                                    @method('DELETE')
-                                                    @csrf
-                                                    <button class="border-0 bg-transparant" style="background-color: transparent;"
-                                                        onclick="return confirm(`Hapus pelanggan {{ $customer->customer_code }}?`);"><i class="bi bi-trash text-danger m-1"></i></button>
-                                                </form>
+                                                <a href=""> <i class="bi bi-pen m-1"></i></a>
+                                                <a href=""> <i class="bi bi-trash text-danger m-1"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach

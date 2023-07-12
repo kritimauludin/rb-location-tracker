@@ -63,7 +63,9 @@ class CustomerController extends Controller
      */
     public function edit(Customer $customer)
     {
-        //
+        return view('customer.update',[
+            'customer' => $customer
+        ]);
     }
 
     /**
@@ -71,7 +73,22 @@ class CustomerController extends Controller
      */
     public function update(UpdateCustomerRequest $request, Customer $customer)
     {
-        //
+        // dd($request);
+        $validCustomer = $request->validate([
+            'customer_code' => 'required',
+            'customer_name' => 'required',
+            'email' => 'required|email:dns',
+            'phone_number' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
+            'join_date' => 'required',
+            'expire_date' => 'required',
+            'address' => 'required',
+            'latitude' => 'required',
+            'longitude' => 'required',
+        ]);
+
+        Customer::where('customer_code', $customer->customer_code)->update($validCustomer);
+
+        return redirect('/customer')->with('success', 'Data pelanggan '.$customer->customer_code.' berhasil diubah !');
     }
 
     /**
@@ -79,6 +96,7 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        //
+        Customer::where('customer_code', $customer->customer_code)->delete();
+        return redirect('/customer')->with('success', 'Pelanggan kode '.$customer->customer_code.' berhasil dihapus!');
     }
 }

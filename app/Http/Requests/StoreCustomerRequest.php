@@ -11,6 +11,7 @@ class StoreCustomerRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        //sementara
         return true;
     }
 

@@ -13,17 +13,19 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Tambah Pelanggan</h5>
+                        <h5 class="card-title">Ubah Data Pelanggan</h5>
 
                         <!-- General Form Elements -->
-                        <form action="/customer" method="POST" enctype="multipart/form-data">
+                        <form action="/customer/{{$customer->customer_code}}" method="POST" enctype="multipart/form-data">
+                            @method('put')
                             @csrf
                             <div class="row">
                                 <div class="col-lg-4">
                                     <div class="form-group mb-3">
                                         <input type="text" id="customer_code" name="customer_code"
                                             @error('customer_code') is-invalid @enderror placeholder="Kode pelanggan (auto)"
-                                            value="{{ old('customer_code') }}" readonly class="form-control" required>
+                                            value="{{ old('customer_code', $customer->customer_code) }}" readonly
+                                            class="form-control" required>
                                         @error('customer_code')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -31,7 +33,8 @@
                                     <div class="form-group mb-3">
                                         <input type="text" id="customer_name" name="customer_name"
                                             @error('customer_name') is-invalid @enderror placeholder="Nama pelanggan"
-                                            value="{{ old('customer_name') }}" autofocus class="form-control" required>
+                                            value="{{ old('customer_name', $customer->customer_name) }}" autofocus
+                                            class="form-control" required>
                                         @error('customer_name')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -39,15 +42,17 @@
                                     <div class="form-group mb-3">
                                         <input type="email" id="email" name="email"
                                             @error('email') is-invalid @enderror placeholder="Email pelanggan"
-                                            value="{{ old('email') }}" class="form-control" required>
+                                            value="{{ old('email', $customer->email) }}" class="form-control" required>
                                         @error('email')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="form-group mb-3">
                                         <input type="number" id="phone_number" name="phone_number"
-                                            @error('phone_number') is-invalid @enderror placeholder="Nomor telepon pelanggan"
-                                            value="{{ old('phone_number') }}" class="form-control" required>
+                                            @error('phone_number') is-invalid @enderror
+                                            placeholder="Nomor telepon pelanggan"
+                                            value="{{ old('phone_number', $customer->phone_number) }}" class="form-control"
+                                            required>
                                         @error('phone_number')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -58,7 +63,8 @@
                                             <div class="col-sm-9">
                                                 <input type="date" id="join_date" name="join_date"
                                                     @error('join_date') is-invalid @enderror placeholder="Tgl Join"
-                                                    value="{{ old('join_date') }}" class="form-control" required>
+                                                    value="{{ old('join_date', $customer->join_date) }}"
+                                                    class="form-control" required>
                                                 @error('join_date')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
@@ -72,7 +78,8 @@
                                             <div class="col-sm-9">
                                                 <input type="date" id="expire_date" name="expire_date"
                                                     @error('expire_date') is-invalid @enderror placeholder="Tgl Join"
-                                                    value="{{ old('expire_date') }}" class="form-control" required>
+                                                    value="{{ old('expire_date', $customer->expire_date) }}"
+                                                    class="form-control" required>
                                                 @error('expire_date')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
@@ -82,7 +89,8 @@
                                     <div class="form-group mb-3">
                                         <input type="text" id="latitude" name="latitude"
                                             @error('latitude') is-invalid @enderror placeholder="Titik latitude (auto)"
-                                            value="{{ old('latitude') }}" readonly class="form-control" required>
+                                            value="{{ old('latitude', $customer->latitude) }}" readonly
+                                            class="form-control" required>
                                         @error('latitude')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -90,28 +98,42 @@
                                     <div class="form-group mb-3">
                                         <input type="text" id="longitude" name="longitude"
                                             @error('longitude') is-invalid @enderror placeholder="Titik longitude (auto)"
-                                            value="{{ old('longitude') }}" readonly class="form-control" required>
+                                            value="{{ old('longitude', $customer->longitude) }}" readonly
+                                            class="form-control" required>
                                         @error('longitude')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
                                 <div class="col-lg-8">
-                                    <input id="address" name="address" style="width: 50%; margin-top: 10px;" class="form-control"
-                                        type="text" value="{{old('address')}}"   @error('address') is-invalid @enderror placeholder="Tulis nama jalan / gedung / perumahan" required>
+                                    <input id="address" name="address" style="width: 50%; margin-top: 10px;"
+                                        class="form-control" type="text"
+                                        placeholder="Tulis nama jalan / gedung / perumahan"
+                                        value="{{ old('address', $customer->address) }}" required>
                                     <div id="map" style="height: 500px; border-radius: 25px;"></div>
                                     <script>
 
                                         //maps binder function
                                         function initAutocomplete() {
+                                            var markers = [];
                                             var map = new google.maps.Map(document.getElementById('map'), {
-                                                center: {
-                                                    lat: -6.595038,
-                                                    lng: 106.816635
-                                                },
-                                                zoom: 13,
+                                                zoom: 18,
                                                 mapTypeId: 'roadmap',
+
                                             });
+
+                                            const iconCurrentPosition = {
+                                                url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+                                                scaledSize: new google.maps.Size(80, 80),
+                                            }
+                                            //set current location
+                                            var marker = new google.maps.Marker({
+                                                icon: iconCurrentPosition,
+                                                position: new google.maps.LatLng(<?= $customer->latitude . ',' . $customer->longitude ?>),
+                                                map: map
+                                            });
+                                            markers.push(marker);
+                                            map.setCenter(new google.maps.LatLng(<?= $customer->latitude . ',' . $customer->longitude ?>));
 
                                             // Membuat Kotak pencarian terhubung dengan tampilan map
                                             var input = document.getElementById('address');
@@ -122,7 +144,6 @@
                                                 searchBox.setBounds(map.getBounds());
                                             });
 
-                                            var markers = [];
                                             // Mengaktifkan detail pada suatu tempat ketika pengguna
                                             // memilih salah satu dari daftar prediksi tempat
                                             searchBox.addListener('places_changed', function() {
@@ -169,26 +190,8 @@
                                                     } else {
                                                         bounds.extend(place.geometry.location);
                                                     }
-
-                                                    console.log(place);
                                                     $('#latitude').val(place.geometry.location.lat());
                                                     $('#longitude').val(place.geometry.location.lng());
-                                                    for (var i = 0; i < place.address_components.length; i++) {
-                                                        for (var j = 0; j < place.address_components[i].types.length; j++) {
-                                                            // set postal code
-                                                            if (place.address_components[i].types[j] == "postal_code") {
-                                                                let postal_code = place.address_components[i].long_name
-                                                                $.ajax({
-                                                                    type: 'GET',
-                                                                    url: '/getnewcode?postal_code=' + postal_code,
-                                                                    success: function(response) {
-                                                                        var response = JSON.parse(response);
-                                                                        $('#customer_code').val(response);
-                                                                    }
-                                                                });
-                                                            }
-                                                        }
-                                                    }
                                                 });
                                                 map.fitBounds(bounds);
                                             });

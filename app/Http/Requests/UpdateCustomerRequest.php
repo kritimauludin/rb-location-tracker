@@ -11,7 +11,8 @@ class UpdateCustomerRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        //sementara
+        return true;
     }
 
     /**

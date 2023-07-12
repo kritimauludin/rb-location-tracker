@@ -20,4 +20,9 @@ class Customer extends Model
         'latitude',
         'longitude'
     ];
+
+    public function getRouteKeyName()
+    {
+        return 'customer_code';
+    }
 }
