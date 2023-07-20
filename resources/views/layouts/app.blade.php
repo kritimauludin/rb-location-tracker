@@ -66,6 +66,14 @@
                         </a>
                     </li><!-- End Search Icon-->
 
+                    <li class="nav-item dropdown p-2">
+
+                        <div class="spinner-grow text-success text-sm" style="width: 10px; height: 10px;" role="status">
+                            <span class="visually-hidden">Not Problem Detected...</span>
+                          </div>
+
+                    </li><!-- End spinner grow Nav -->
+
                     <li class="nav-item dropdown">
 
                         <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
@@ -286,6 +294,7 @@
                     </a>
                 </li><!-- End Dashboard Nav -->
 
+                @if (Auth::user()->role_id == 1)
                 <li class="nav-item">
                     <a class="nav-link collapsed" data-bs-target="#users-nav" data-bs-toggle="collapse"
                         href="#">
@@ -298,13 +307,14 @@
                                 <i class="bi bi-circle"></i><span>Lihat Pengguna</span>
                             </a>
                         </li>
-                        <li>
+                        {{-- <li>
                             <a href="users-accordion.html">
                                 <i class="bi bi-circle"></i><span>Tambah Pengguna</span>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li><!-- End users Nav -->
+                @endif
 
                 <li class="nav-item">
                     <a class="nav-link collapsed" data-bs-target="#customers-nav" data-bs-toggle="collapse"
@@ -325,6 +335,26 @@
                         </li>
                     </ul>
                 </li><!-- End customers Nav -->
+
+                <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#customers-nav" data-bs-toggle="collapse"
+                        href="{{route('customer.index')}}">
+                        <i class="bi bi-calendar-plus"></i><span>Data Distribusi</span><i
+                            class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="customers-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a href="{{route('customer.index')}}">
+                                <i class="bi bi-circle"></i><span>Lihat Pelanggan</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('customer.create')}}">
+                                <i class="bi bi-circle"></i><span>Tambah Pelanggan</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li><!-- End distribution Nav -->
 
                 <li class="nav-heading">Pages</li>
 

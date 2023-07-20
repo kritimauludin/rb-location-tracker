@@ -13,8 +13,8 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Data Pengguna</h5>
-                        <a href="/customer/create" class="text-right position-absolute end-0 top-0 m-4 h3"> <i
-                                class="bi bi-person-plus m-1"></i></a>
+                        {{-- <a href="/customer/create" class="text-right position-absolute end-0 top-0 m-4 h3"> <i
+                                class="bi bi-person-plus m-1"></i></a> --}}
 
                         {{-- alert --}}
                         @if (session()->has('success'))
@@ -49,11 +49,11 @@
                                             <td>{{ $user->email }}</td>
                                             <td>{{ $user->created_at }}</td>
                                             <td>
-                                                {{$user->role->role_name}}
+                                                {{ $user->role->role_name }}
                                             </td>
                                             <td>
-                                                <a href=""> <i class="bi bi-eye m-1"></i></a>
-                                                <a href=""> <i class="bi bi-pen m-1"></i></a>
+                                                <a href="/user/{{$user->id}}"> <i class="bi bi-eye m-1"></i></a>
+                                                <a href="/user/{{$user->id}}/edit"> <i class="bi bi-pen m-1"></i></a>
                                                 <a href=""> <i class="bi bi-trash text-danger m-1"></i></a>
                                             </td>
                                         </tr>

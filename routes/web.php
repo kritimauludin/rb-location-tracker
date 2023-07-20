@@ -28,6 +28,7 @@ Auth::routes([
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
 Route::get('/my-profile', [App\Http\Controllers\HomeController::class, 'myProfile'])->name('my-profile')->middleware('verified');
 
+Route::post('/promote', [UserController::class, 'promote'])->middleware('auth');
 Route::resource('user', UserController::class)->middleware('auth');
 Route::resource('customer', CustomerController::class)->middleware('auth');
 
