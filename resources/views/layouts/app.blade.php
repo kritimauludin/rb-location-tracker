@@ -27,7 +27,7 @@
     <link href="{{ asset('assets') }}/vendor/quill/quill.snow.css" rel="stylesheet">
     <link href="{{ asset('assets') }}/vendor/quill/quill.bubble.css" rel="stylesheet">
     <link href="{{ asset('assets') }}/vendor/remixicon/remixicon.css" rel="stylesheet">
-    <link href="{{ asset('assets') }}/vendor/simple-datatables/style.css" rel="stylesheet">
+    <link href="{{ asset('assets') }}/vendor/datatables/style.css" rel="stylesheet">
 
     <!-- Template Main CSS File -->
     <link href="{{ asset('assets') }}/css/style.css" rel="stylesheet">
@@ -337,20 +337,20 @@
                 </li><!-- End customers Nav -->
 
                 <li class="nav-item">
-                    <a class="nav-link collapsed" data-bs-target="#customers-nav" data-bs-toggle="collapse"
-                        href="{{route('customer.index')}}">
+                    <a class="nav-link collapsed" data-bs-target="#distributions-nav" data-bs-toggle="collapse"
+                        href="{{route('distribution.index')}}">
                         <i class="bi bi-calendar-plus"></i><span>Data Distribusi</span><i
                             class="bi bi-chevron-down ms-auto"></i>
                     </a>
-                    <ul id="customers-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <ul id="distributions-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                         <li>
-                            <a href="{{route('customer.index')}}">
-                                <i class="bi bi-circle"></i><span>Lihat Pelanggan</span>
+                            <a href="{{route('distribution.index')}}">
+                                <i class="bi bi-circle"></i><span>Lihat Distribusi</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{{route('customer.create')}}">
-                                <i class="bi bi-circle"></i><span>Tambah Pelanggan</span>
+                            <a href="{{route('distribution.create')}}">
+                                <i class="bi bi-circle"></i><span>Tambah Distribusi</span>
                             </a>
                         </li>
                     </ul>
@@ -387,9 +387,8 @@
     <script src="{{ asset('assets') }}/vendor/chart.js/chart.umd.js"></script>
     <script src="{{ asset('assets') }}/vendor/echarts/echarts.min.js"></script>
     <script src="{{ asset('assets') }}/vendor/quill/quill.min.js"></script>
-    <script src="{{ asset('assets') }}/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="{{ asset('assets') }}/vendor/datatables/datatables.min.js"></script>
     <script src="{{ asset('assets') }}/vendor/tinymce/tinymce.min.js"></script>
-    <script src="{{ asset('assets') }}/vendor/php-email-form/validate.js"></script>
 
     <!-- Template Main JS File -->
     <script src="{{ asset('assets') }}/js/main.js"></script>

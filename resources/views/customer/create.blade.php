@@ -22,32 +22,32 @@
                                 <div class="col-lg-4">
                                     <div class="form-group mb-3">
                                         <input type="text" id="customer_code" name="customer_code"
-                                            @error('customer_code') is-invalid @enderror placeholder="Kode pelanggan (auto)"
-                                            value="{{ old('customer_code') }}" readonly class="form-control" required>
+                                           placeholder="Kode pelanggan (auto)"
+                                            value="{{ old('customer_code') }}" readonly class="form-control   @error('customer_code') is-invalid @enderror" required>
                                         @error('customer_code')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="form-group mb-3">
                                         <input type="text" id="customer_name" name="customer_name"
-                                            @error('customer_name') is-invalid @enderror placeholder="Nama pelanggan"
-                                            value="{{ old('customer_name') }}" autofocus class="form-control" required>
+                                             placeholder="Nama pelanggan"
+                                            value="{{ old('customer_name') }}" autofocus class="form-control @error('customer_name') is-invalid @enderror" required>
                                         @error('customer_name')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="form-group mb-3">
                                         <input type="email" id="email" name="email"
-                                            @error('email') is-invalid @enderror placeholder="Email pelanggan"
-                                            value="{{ old('email') }}" class="form-control" required>
-                                        @error('email')
+                                             placeholder="Email pelanggan"
+                                            value="{{ old("email") }}" class="form-control @error("email") is-invalid @enderror" required>
+                                        @error("email")
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="form-group mb-3">
                                         <input type="number" id="phone_number" name="phone_number"
-                                            @error('phone_number') is-invalid @enderror placeholder="Nomor telepon pelanggan"
-                                            value="{{ old('phone_number') }}" class="form-control" required>
+                                             placeholder="Nomor telepon pelanggan"
+                                            value="{{ old('phone_number') }}" class="form-control @error('phone_number') is-invalid @enderror" required>
                                         @error('phone_number')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -57,8 +57,8 @@
                                             <label for="inputDate" class="col-sm-3 col-form-label">Tgl. Join</label>
                                             <div class="col-sm-9">
                                                 <input type="date" id="join_date" name="join_date"
-                                                    @error('join_date') is-invalid @enderror placeholder="Tgl Join"
-                                                    value="{{ old('join_date') }}" class="form-control" required>
+                                                     placeholder="Tgl Join"
+                                                    value="{{ old('join_date') }}" class="form-control @error('join_date') is-invalid @enderror" required>
                                                 @error('join_date')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
@@ -71,8 +71,8 @@
                                                 Expire</label>
                                             <div class="col-sm-9">
                                                 <input type="date" id="expire_date" name="expire_date"
-                                                    @error('expire_date') is-invalid @enderror placeholder="Tgl Join"
-                                                    value="{{ old('expire_date') }}" class="form-control" required>
+                                                     placeholder="Tgl Join"
+                                                    value="{{ old('expire_date') }}" class="form-control @error('expire_date') is-invalid @enderror" required>
                                                 @error('expire_date')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
@@ -81,24 +81,24 @@
                                     </div>
                                     <div class="form-group mb-3">
                                         <input type="text" id="latitude" name="latitude"
-                                            @error('latitude') is-invalid @enderror placeholder="Titik latitude (auto)"
-                                            value="{{ old('latitude') }}" readonly class="form-control" required>
+                                            placeholder="Titik latitude (auto)"
+                                            value="{{ old('latitude') }}" readonly class="form-control @error('latitude') is-invalid @enderror" required>
                                         @error('latitude')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="form-group mb-3">
                                         <input type="text" id="longitude" name="longitude"
-                                            @error('longitude') is-invalid @enderror placeholder="Titik longitude (auto)"
-                                            value="{{ old('longitude') }}" readonly class="form-control" required>
+                                             placeholder="Titik longitude (auto)"
+                                            value="{{ old('longitude') }}" readonly class="form-control @error('longitude') is-invalid @enderror" required>
                                         @error('longitude')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                 </div>
                                 <div class="col-lg-8">
-                                    <input id="address" name="address" style="width: 50%; margin-top: 10px;" class="form-control"
-                                        type="text" value="{{old('address')}}"   @error('address') is-invalid @enderror placeholder="Tulis nama jalan / gedung / perumahan" required>
+                                    <input id="address" name="address" style="width: 50%; margin-top: 10px;" class="form-control @error('address') is-invalid @enderror"
+                                        type="text" value="{{old('address')}}"    placeholder="Tulis nama jalan / gedung / perumahan" required>
                                     <div id="map" style="height: 500px; border-radius: 25px;"></div>
                                     <script>
 
@@ -180,7 +180,7 @@
                                                                 let postal_code = place.address_components[i].long_name
                                                                 $.ajax({
                                                                     type: 'GET',
-                                                                    url: '/getnewcode?postal_code=' + postal_code,
+                                                                    url: '/getnewcode?postal_code=' + postal_code + '&type=customer',
                                                                     success: function(response) {
                                                                         var response = JSON.parse(response);
                                                                         $('#customer_code').val(response);

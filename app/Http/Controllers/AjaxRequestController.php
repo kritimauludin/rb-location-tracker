@@ -20,11 +20,18 @@ class AjaxRequestController extends Controller
             $courier = User::where('role_id', '3')->get();
             $last = count($courier) + 1;
             $code = 'CR' . $request->postal_code . $last;
-        } else {
+        } else if($request->type == 'customer'){
             //code for customer
             $customers = Customer::all();
             $last = count($customers) + 1;
             $code = 'C' . $request->postal_code . $last;
+        } else if($request->type == 'distribution'){
+            //code for customer
+            $customers = Customer::all();
+            $last = count($customers) + 1;
+            $code = 'C' . $request->postal_code . $last;
+        } else {
+            $code = 404;
         }
 
         return json_encode($code);

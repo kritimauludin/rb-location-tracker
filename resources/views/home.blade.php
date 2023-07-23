@@ -171,28 +171,27 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
-                                            <th scope="col">Customer</th>
-                                            <th scope="col">Product</th>
-                                            <th scope="col">Price</th>
+                                            <th scope="col">Pelanggan</th>
+                                            <th scope="col">Edisi</th>
+                                            <th scope="col">Nama kurir</th>
                                             <th scope="col">Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
                                             <th scope="row"><a href="#">#2457</a></th>
-                                            <td>Brandon Jacob</td>
-                                            <td><a href="#" class="text-primary">At praesentium minu</a></td>
-                                            <td>$64</td>
-                                            <td><span class="badge bg-success">Approved</span></td>
+                                            <td>Radar Bogor</td>
+                                            <td><a href="#" class="text-primary">Koran Edisi 22 juni</a></td>
+                                            <td>Kurir</td>
+                                            <td><span class="badge bg-success">Sampai</span></td>
                                         </tr>
                                         <tr>
                                             <th scope="row"><a href="#">#2147</a></th>
-                                            <td>Bridie Kessler</td>
-                                            <td><a href="#" class="text-primary">Blanditiis dolor omnis
-                                                    similique</a></td>
-                                            <td>$47</td>
-                                            <td><span class="badge bg-warning">Pending</span></td>
-                                        </tr>
+                                            <td>IBI Kesatuan</td>
+                                            <td><a href="#" class="text-primary">Koran Edisi 22 juni</a></td>
+                                            <td>Kurir</td>
+                                            <td><span class="badge bg-warning">Menunggu</span></td>
+                                        {{-- </tr>
                                         <tr>
                                             <th scope="row"><a href="#">#2049</a></th>
                                             <td>Ashleigh Langosh</td>
@@ -213,7 +212,7 @@
                                             <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
                                             <td>$165</td>
                                             <td><span class="badge bg-success">Approved</span></td>
-                                        </tr>
+                                        </tr> --}}
                                     </tbody>
                                 </table>
 
@@ -251,7 +250,7 @@
                                 <i class="bi bi-newspaper"></i>
                             </div>
                             <div class="ps-3">
-                                <h6>145</h6>
+                                <h6>0</h6>
                                 <span class="text-success small pt-1 fw-bold">--</span> <span
                                     class="text-muted small pt-2 ps-1">koran</span>
 
@@ -289,7 +288,7 @@
                                     beatae
                                 </div>
                             </div><!-- End activity item-->
-
+{{--
                             <div class="activity-item d-flex">
                                 <div class="activite-label">56 min</div>
                                 <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
@@ -329,7 +328,7 @@
                                 <div class="activity-content">
                                     Dicta dolorem harum nulla eius. Ut quidem quidem sit quas
                                 </div>
-                            </div><!-- End activity item-->
+                            </div><!-- End activity item--> --}}
 
                         </div>
 
@@ -361,7 +360,7 @@
                                 <p>Sit recusandae non aspernatur laboriosam. Quia enim eligendi sed ut harum...</p>
                             </div>
 
-                            <div class="post-item clearfix">
+                            {{-- <div class="post-item clearfix">
                                 <img src="assets/img/news-2.jpg" alt="">
                                 <h4><a href="#">Quidem autem et impedit</a></h4>
                                 <p>Illo nemo neque maiores vitae officiis cum eum turos elan dries werona nande...</p>
@@ -395,7 +394,7 @@
                                 <img src="assets/img/news-5.jpg" alt="">
                                 <h4><a href="#">Et dolores corrupti quae illo quod dolor</a></h4>
                                 <p>Odit ut eveniet modi reiciendis. Atque cupiditate libero beatae dignissimos eius...</p>
-                            </div>
+                            </div> --}}
 
                         </div><!-- End sidebar recent posts-->
 
