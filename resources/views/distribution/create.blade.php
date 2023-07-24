@@ -71,8 +71,8 @@
                             <div class="row">
                                 <div class="col-lg-2"></div>
                                 <div class="col-lg-2 text-center">
-                                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
-                                        data-bs-target="#customersmodal">Cari Pelanggan</button>
+                                    <button type="button" class="btn btn-outline-primary" id="search-customer-button" data-bs-toggle="modal"
+                                        data-bs-target="#customersmodal" style="display: block;">Cari Pelanggan</button>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="row">
@@ -80,9 +80,10 @@
                                             <div class="form-group mb-3">
                                                 <input type="hidden" id="customer_code[0]" name="customer_code[0]">
                                                 <input type="text" id="customer_name[0]" name="customer_name[0]"
-                                                    @error('customer_name[0]') is-invalid @enderror placeholder="Nama Pelanggan (auto)"
-                                                    value="{{ old('customer_name[0]') }}" readonly class="form-control text-center"
-                                                    required>
+                                                    @error('customer_name[0]') is-invalid @enderror
+                                                    placeholder="Nama Pelanggan (auto)"
+                                                    value="{{ old('customer_name[0]') }}" readonly
+                                                    class="form-control text-center" required>
                                                 @error('customer_name[0]')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
@@ -92,7 +93,7 @@
                                             <div class="form-group mb-3">
                                                 <input type="number" id="total[0]" name="total[0]"
                                                     @error('total[0]') is-invalid @enderror placeholder="Total"
-                                                    value="{{ old('total[0]') }}" class="form-control text-center" required>
+                                                    value="{{ old('total[0]') }}" class="form-control text-center total" required>
                                                 @error('total[0]')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
@@ -104,7 +105,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-12 text-center">
-                                    <a href="javascript:void(0);" id="add-field-customer" class="h3"><i
+                                    <a href="javascript:void(0);" id="add-field-customer" class="h3" style="display: none;"><i
                                             class="bi bi-clipboard-plus"></i></a>
                                 </div>
                             </div>
@@ -150,9 +151,8 @@
                             </thead>
                             <tbody>
                                 @foreach ($couriers as $courier)
-                                    <tr class="CourierData" data-courier-code="{{$courier->user_code}}"
-                                        class="CourierData" data-courier-name="{{$courier->name}}"
-                                    >
+                                    <tr class="CourierData" data-courier-code="{{ $courier->user_code }}"
+                                        class="CourierData" data-courier-name="{{ $courier->name }}">
                                         <th scope="row">{{ $loop->iteration }}</th>
                                         <td>{{ $courier->user_code }}</td>
                                         <td>{{ $courier->name }}</td>
@@ -183,7 +183,7 @@
                 <div class="modal-body">
                     <p>klik dibaris data untuk memilih pelanggan</p>
                     <div class="table-responsive">
-                        <table class="table table table-striped table-hover datatable">
+                        <table class="table table-hover datatable">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -195,9 +195,8 @@
                             </thead>
                             <tbody>
                                 @foreach ($customers as $customer)
-                                    <tr class="CustomerData" data-customer-code="{{$customer->customer_code}}"
-                                        class="CustomerData" data-customer-name="{{$customer->customer_name}}"
-                                    >
+                                    <tr class="CustomerData" data-customer-code="{{ $customer->customer_code }}"
+                                        class="CustomerData" data-customer-name="{{ $customer->customer_name }}">
                                         <th scope="row">{{ $loop->iteration }}</th>
                                         <td>{{ $customer->customer_code }}</td>
                                         <td>{{ $customer->customer_name }}</td>
@@ -220,9 +219,28 @@
     {{-- js function --}}
     <script type="text/javascript">
         var addButton = $('#add-field-customer');
+        var searchCustomerButton = $('#search-customer-button');
         var field = $('.field-customer');
         var customerIndex = 0;
         var fieldHtml = '';
+
+        $.ajax({
+            type: 'GET',
+            url: '/getnewcode?type=distribution',
+            success: function(response) {
+                var response = JSON.parse(response);
+                $('#distribution_code').val(response);
+            }
+        });
+        $(document).on('keyup', ".total",function () {
+            var totalNewspaper = 0;
+
+            $('.total').each(function(){
+                totalNewspaper += parseFloat($(this).val());
+            })
+
+            $("#total_newspaper").val(totalNewspaper);
+        })
 
         // Modal courir
         $(document).on('click', '.CourierData', function(e) {
@@ -233,18 +251,17 @@
 
         // Modal customer
         $(document).on('click', '.CustomerData', function(e) {
-            if(document.getElementById("customer_code["+customerIndex+"]") == null) {
-                alert('Klik tambah row pelanggan terlebih dahulu')
-            } else{
-                document.getElementById("customer_code["+customerIndex+"]").value = $(this).attr('data-customer-code');
-                document.getElementById("customer_name["+customerIndex+"]").value = $(this).attr('data-customer-name');
-                customerIndex+=1;
+                document.getElementById("customer_code[" + customerIndex + "]").value = $(this).attr('data-customer-code');
+                document.getElementById("customer_name[" + customerIndex + "]").value = $(this).attr('data-customer-name');
+                customerIndex += 1;
                 fieldHtml =
                 `<div class="row">
                     <div class="col-lg-8">
                         <div class="form-group mb-3">
-                            <input type="hidden" id="customer_code[`+customerIndex+`]" name="customer_code[`+customerIndex+`]">
-                            <input type="text" id="customer_name[`+customerIndex+`]" name="customer_name[`+customerIndex+`]"
+                            <input type="hidden" id="customer_code[` + customerIndex + `]" name="customer_code[` +
+                    customerIndex + `]">
+                            <input type="text" id="customer_name[` + customerIndex + `]" name="customer_name[` +
+                    customerIndex + `]"
                                 @error('customer_name[`+customerIndex+`]') is-invalid @enderror placeholder="Nama Pelanggan (auto)"
                                     value="{{ old('customer_name[`+customerIndex+`]') }}" readonly class="form-control text-center" required>
                                 @error('customer_name[`+customerIndex+`]')
@@ -255,25 +272,24 @@
 
                     <div class="col-lg-4">
                         <div class="form-group mb-3">
-                            <input type="number" id="total[`+customerIndex+`]" name="total[`+customerIndex+`]"
+                            <input type="number" id="total[` + customerIndex + `]" name="total[` + customerIndex + `]"
                                 @error('total[`+customerIndex+`]') is-invalid @enderror placeholder="Total"
-                                value="{{ old('total[`+customerIndex+`]') }}" class="form-control text-center" required>
+                                value="{{ old('total[`+customerIndex+`]') }}" class="form-control text-center total" required>
                             @error('total')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
                 </div>`;
-            }
+            searchCustomerButton.removeAttr('style').hide();
+            addButton.show();
             $('#customersmodal').modal('hide');
         });
 
         $(addButton).click(function() {
-            if(customerIndex == 0){
-                alert('Isi pelanggan ke-1 terlebih dahulu!');
-            }else{
+                searchCustomerButton.show();
+                addButton.removeAttr("style").hide();
                 $(field).append(fieldHtml);
-            }
         });
     </script>
 @endsection

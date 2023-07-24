@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('distribution_code')->unique();
             $table->string('admin_code');
             $table->string('courier_code');
-            $table->integer('total')->default(0);
+            $table->integer('total_newspaper')->default(0);
             $table->timestamps();
         });
     }

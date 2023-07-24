@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Distribution;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AjaxRequestController extends Controller
@@ -27,9 +29,9 @@ class AjaxRequestController extends Controller
             $code = 'C' . $request->postal_code . $last;
         } else if($request->type == 'distribution'){
             //code for customer
-            $customers = Customer::all();
-            $last = count($customers) + 1;
-            $code = 'C' . $request->postal_code . $last;
+            $distributionsToday = Distribution::whereDate('created_at', Carbon::today())->get();
+            $last = count($distributionsToday) + 1;
+            $code = 'DS' . date('Ymd') . $last;
         } else {
             $code = 404;
         }
