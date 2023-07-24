@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         \App\Models\User::factory()->create([
+            'user_code' => 'SU161121',
             'name' => 'Akun Superadmin',
             'email' => 'superadmin@gmail.com',
             'role_id' => 1,

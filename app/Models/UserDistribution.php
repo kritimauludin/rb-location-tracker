@@ -18,7 +18,7 @@ class UserDistribution extends Model
     ];
 
     public function distribution (){
-        return $this->hasMany(Distribution::class);
+        return $this->belongsTo(Distribution::class, 'distribution_code', 'distribution_code');
     }
 
 }

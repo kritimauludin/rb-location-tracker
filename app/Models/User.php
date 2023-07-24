@@ -43,8 +43,15 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    public function getRouteKeyName(){
+        return 'user_code';
+    }
 
     public function role(): BelongsTo{
         return $this->belongsTo(Role::class);
+    }
+
+    public function courier(){
+        return $this->hasMany(Distribution::class, 'courier_code', 'user_code');
     }
 }

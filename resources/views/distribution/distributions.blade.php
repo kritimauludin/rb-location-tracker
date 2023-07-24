@@ -44,11 +44,10 @@
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
                                             <td>{{ $distribution->distribution_code }}</td>
-                                            <td>{{ $distribution->name }}</td>
-                                            <td>{{ $distribution->total }}</td>
                                             <td>{{ $distribution->created_at }}</td>
+                                            <td>{{ $distribution->courier->name }}</td>
                                             <td>
-                                                {{ $distribution->role->role_name }}
+                                                {{ $distribution->total_newspaper}}
                                             </td>
                                             <td>
                                                 <a href="/distribution/{{$distribution->distribution_code}}"> <i class="bi bi-eye m-1"></i></a>

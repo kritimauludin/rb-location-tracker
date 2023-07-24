@@ -12,8 +12,8 @@ class Distribution extends Model
     protected $fillable = [
         'distribution_code',
         'courier_code',
-        'user_code',
-        'total'
+        'admin_code',
+        'total_newspaper'
     ];
 
     public function getRouteKeyName()
@@ -21,7 +21,11 @@ class Distribution extends Model
         return 'distribution_code';
     }
 
-    public function user_distibution() {
-        return $this->belongsTo(UserDistribution::class);
+    public function user_distribution() {
+        return $this->hasMany(UserDistribution::class, 'distribution_code', 'distribution_code');
+    }
+
+    public function courier(){
+        return $this->belongsTo(User::class, 'courier_code', 'user_code');
     }
 }

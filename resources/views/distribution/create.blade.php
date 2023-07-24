@@ -20,10 +20,10 @@
                             <div class="row">
                                 <div class="col-lg-2">
                                     <div class="form-group mb-3">
+                                        <input type="hidden" name="admin_code" id="admin_code" value="{{Auth::user()->user_code}}">
                                         <input type="text" id="distribution_code" name="distribution_code"
-                                            @error('distribution_code') is-invalid @enderror
                                             placeholder="Kode distribusi (auto)" value="{{ old('distribution_code') }}"
-                                            readonly class="form-control text-center" required>
+                                            readonly class="form-control @error('distribution_code') is-invalid @enderror text-center" required>
                                         @error('distribution_code')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -32,8 +32,7 @@
                                 <div class="col-lg-2">
                                     <div class="form-group mb-3">
                                         <input type="text" id="created_at" name="created_at"
-                                            @error('created_at') is-invalid @enderror
-                                            value="{{ old('created_at', date('d-m-Y')) }}" class="form-control text-center"
+                                            value="{{ old('created_at', date('d-m-Y')) }}" class="form-control  @error('created_at') is-invalid @enderror text-center"
                                             required>
                                         @error('created_at')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -43,8 +42,8 @@
                                 <div class="col-lg-2">
                                     <div class="form-group mb-3">
                                         <input type="text" id="total_newspaper" name="total_newspaper"
-                                            @error('total_newspaper') is-invalid @enderror placeholder="Total Koran (auto)"
-                                            value="{{ old('total_newspaper') }}" readonly class="form-control text-center"
+                                            placeholder="Total Koran (auto)"
+                                            value="{{ old('total_newspaper') }}" readonly class="form-control @error('total_newspaper') is-invalid @enderror text-center"
                                             required>
                                         @error('total_newspaper')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -55,8 +54,8 @@
                                     <div class="form-group mb-3">
                                         <input type="hidden" id="courier_code" name="courier_code">
                                         <input type="text" id="courier_name" name="courier_name"
-                                            @error('courier_name') is-invalid @enderror placeholder="Nama Kurir (auto)"
-                                            value="{{ old('courier_name') }}" readonly class="form-control text-center"
+                                             placeholder="Nama Kurir (auto)"
+                                            value="{{ old('courier_name') }}" readonly class="form-control @error('courier_name') is-invalid @enderror text-center"
                                             required>
                                         @error('courier_name')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -80,10 +79,9 @@
                                             <div class="form-group mb-3">
                                                 <input type="hidden" id="customer_code[0]" name="customer_code[0]">
                                                 <input type="text" id="customer_name[0]" name="customer_name[0]"
-                                                    @error('customer_name[0]') is-invalid @enderror
                                                     placeholder="Nama Pelanggan (auto)"
                                                     value="{{ old('customer_name[0]') }}" readonly
-                                                    class="form-control text-center" required>
+                                                    class="form-control  @error('customer_name[0]') is-invalid @enderror text-center" required>
                                                 @error('customer_name[0]')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
@@ -91,9 +89,8 @@
                                         </div>
                                         <div class="col-lg-4">
                                             <div class="form-group mb-3">
-                                                <input type="number" id="total[0]" name="total[0]"
-                                                    @error('total[0]') is-invalid @enderror placeholder="Total"
-                                                    value="{{ old('total[0]') }}" class="form-control text-center total" required>
+                                                <input type="number" id="total[0]" name="total[0]" placeholder="Total"
+                                                    value="{{ old('total[0]') }}" class="form-control @error('total[0]') is-invalid @enderror text-center total" required>
                                                 @error('total[0]')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
