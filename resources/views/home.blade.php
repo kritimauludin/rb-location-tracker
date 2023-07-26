@@ -174,45 +174,29 @@
                                             <th scope="col">Pelanggan</th>
                                             <th scope="col">Edisi</th>
                                             <th scope="col">Nama kurir</th>
+                                            <th scope="col">Terakhir diperbarui</th>
                                             <th scope="col">Status</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th scope="row"><a href="#">#2457</a></th>
-                                            <td>Radar Bogor</td>
-                                            <td><a href="#" class="text-primary">Koran Edisi 22 juni</a></td>
-                                            <td>Kurir</td>
-                                            <td><span class="badge bg-success">Sampai</span></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><a href="#">#2147</a></th>
-                                            <td>IBI Kesatuan</td>
-                                            <td><a href="#" class="text-primary">Koran Edisi 22 juni</a></td>
-                                            <td>Kurir</td>
-                                            <td><span class="badge bg-warning">Menunggu</span></td>
-                                        {{-- </tr>
-                                        <tr>
-                                            <th scope="row"><a href="#">#2049</a></th>
-                                            <td>Ashleigh Langosh</td>
-                                            <td><a href="#" class="text-primary">At recusandae consectetur</a></td>
-                                            <td>$147</td>
-                                            <td><span class="badge bg-success">Approved</span></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><a href="#">#2644</a></th>
-                                            <td>Angus Grady</td>
-                                            <td><a href="#" class="text-primar">Ut voluptatem id earum et</a></td>
-                                            <td>$67</td>
-                                            <td><span class="badge bg-danger">Rejected</span></td>
-                                        </tr>
-                                        <tr>
-                                            <th scope="row"><a href="#">#2644</a></th>
-                                            <td>Raheem Lehner</td>
-                                            <td><a href="#" class="text-primary">Sunt similique distinctio</a></td>
-                                            <td>$165</td>
-                                            <td><span class="badge bg-success">Approved</span></td>
-                                        </tr> --}}
+                                        @foreach ($recentDistributions as $distribution)
+                                            <tr>
+                                                <th scope="row"><a href="#">#{{$distribution->id}}</a></th>
+                                                <td>Radar Bogor</td>
+                                                <td><a href="#" class="text-primary">Koran Edisi 22 juni</a></td>
+                                                <td>Kurir</td>
+                                                <td>{{$distribution->updated_at}}</td>
+                                                <td>
+                                                    @if ($distribution->status == 200)
+                                                        <span class="badge bg-success">sampai</span>
+                                                    @elseif($distribution->status == 201)
+                                                        <span class="badge bg-primary">menunggu</span>
+                                                    @else
+                                                        <span class="badge bg-warning">diperjalanan</span>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
 
@@ -250,7 +234,7 @@
                                 <i class="bi bi-newspaper"></i>
                             </div>
                             <div class="ps-3">
-                                <h6>0</h6>
+                                <h6>{{$totalDistributionToday}}</h6>
                                 <span class="text-success small pt-1 fw-bold">--</span> <span
                                     class="text-muted small pt-2 ps-1">koran</span>
 

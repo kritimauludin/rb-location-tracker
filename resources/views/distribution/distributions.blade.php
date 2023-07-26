@@ -52,7 +52,12 @@
                                             <td>
                                                 <a href="/distribution/{{$distribution->distribution_code}}"> <i class="bi bi-eye m-1"></i></a>
                                                 <a href="/distribution/{{$distribution->distribution_code}}/edit"> <i class="bi bi-pen m-1"></i></a>
-                                                <a href=""> <i class="bi bi-trash text-danger m-1"></i></a>
+                                                <form action="/distribution/{{ $distribution->distribution_code }}" method="POST" class="d-inline">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button class="border-0 bg-transparant" style="background-color: transparent;"
+                                                        onclick="return confirm(`Hapus distribusi {{ $distribution->distribution_code }}?`);"><i class="bi bi-trash text-danger m-1"></i></button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach

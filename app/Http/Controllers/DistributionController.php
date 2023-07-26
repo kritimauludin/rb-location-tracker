@@ -57,7 +57,8 @@ class DistributionController extends Controller
                     'distribution_code' => $validDistribution['distribution_code'],
                     'customer_code' => $request->customer_code[$i],
                     'total' => $request->total[$i],
-                    'created_at' => date("Y-m-d H:i:s")
+                    'created_at' => date("Y-m-d H:i:s"),
+                    'updated_at' => date("Y-m-d H:i:s"),
                 ];
             }
             Distribution::create($validDistribution);
@@ -70,9 +71,11 @@ class DistributionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Distribution $distribution)
-    {
-        //
+    public function show(Distribution $distribution){
+
+        return view('distribution.show', [
+            'distribution' => $distribution,
+        ]);
     }
 
     /**
@@ -80,7 +83,14 @@ class DistributionController extends Controller
      */
     public function edit(Distribution $distribution)
     {
-        //
+        $couriers = User::where('role_id', 3)->get();
+        $customers = Customer::all();
+
+        return view('distribution.update', [
+            'distribution' => $distribution,
+            'couriers'  => $couriers,
+            'customers' => $customers
+        ]);
     }
 
     /**
@@ -96,6 +106,8 @@ class DistributionController extends Controller
      */
     public function destroy(Distribution $distribution)
     {
-        //
+        Distribution::where('distribution_code', $distribution->distribution_code)->delete();
+        UserDistribution::where('distribution_code', $distribution->distribution_code)->delete();
+        return redirect('/distribution')->with('success', 'Alokasi disribusi kode '.$distribution->distribution_code.' berhasil dihapus!');
     }
 }
