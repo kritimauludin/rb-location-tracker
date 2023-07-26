@@ -73,8 +73,14 @@ class DistributionController extends Controller
      */
     public function show(Distribution $distribution){
 
+        $distribution = Distribution::with(['courier', 'user_distribution'])
+                            ->where('distribution_code', $distribution->distribution_code)
+                            ->select('distribution_code', 'created_at', 'courier_code', 'total_newspaper')
+                            ->get();
+
+                            // dd($distribution);
         return view('distribution.show', [
-            'distribution' => $distribution,
+            'distribution' => $distribution[0],
         ]);
     }
 

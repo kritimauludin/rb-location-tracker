@@ -21,4 +21,7 @@ class UserDistribution extends Model
         return $this->belongsTo(Distribution::class, 'distribution_code', 'distribution_code');
     }
 
+    public function customer() {
+        return $this->belongsTo(Customer::class, 'customer_code', 'customer_code');
+    }
 }

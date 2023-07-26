@@ -25,4 +25,8 @@ class Customer extends Model
     {
         return 'customer_code';
     }
+
+    public function user_distribution() {
+        return $this->hasMany(UserDistribution::class, 'customer_code', 'customer_code');
+    }
 }
