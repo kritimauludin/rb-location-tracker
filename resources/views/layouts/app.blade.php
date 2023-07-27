@@ -368,13 +368,13 @@
                         </a>
                         <ul id="distributions-today-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                             <li>
-                                <a href="{{route('distribution.index')}}">
+                                <a href="{{route('distribution.today')}}">
                                     <i class="bi bi-circle"></i><span>Lihat Distribusi Hari Ini</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="{{route('distribution.create')}}">
-                                    <i class="bi bi-circle"></i><span>Tambah Distribusi</span>
+                                <a href="{{route('distribution.report')}}">
+                                    <i class="bi bi-circle"></i><span>Rekap Distribusi Saya</span>
                                 </a>
                             </li>
                         </ul>

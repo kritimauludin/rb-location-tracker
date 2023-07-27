@@ -34,6 +34,9 @@ Route::post('/promote', [UserController::class, 'promote'])->middleware('auth');
 // Route resource controller
 Route::resource('user', UserController::class)->middleware('auth');
 Route::resource('customer', CustomerController::class)->middleware('auth');
+
+Route::get('/distribution/today', [DistributionController::class, 'todayDistribution'])->middleware('auth')->name('distribution.today');
+Route::get('/distribution/report', [DistributionController::class, 'reportDistribution'])->middleware('auth')->name('distribution.report');
 Route::resource('distribution', DistributionController::class)->middleware('auth');
 
 //generate new code

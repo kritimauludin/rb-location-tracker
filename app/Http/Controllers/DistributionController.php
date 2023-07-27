@@ -8,6 +8,9 @@ use App\Models\Customer;
 use App\Models\Distribution;
 use App\Models\User;
 use App\Models\UserDistribution;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class DistributionController extends Controller
 {
@@ -19,9 +22,25 @@ class DistributionController extends Controller
         $distributions = Distribution::with(['courier'])
                             ->select('distribution_code', 'created_at', 'courier_code', 'total_newspaper')
                             ->get();
-        // dd($distributions);
         return view('distribution.distributions', [
             'distributions' => $distributions,
+        ]);
+    }
+
+    /**
+     * Display a listing of the resource with query where.
+     */
+    public function todayDistribution(Request $request){
+        $todayDistribution = Distribution::with(['courier', 'user_distribution'])
+                            // ->where('courier_code', Auth::user()->user_code)
+                            ->select('distribution_code', 'created_at', 'courier_code', 'total_newspaper')
+                            ->whereDate('created_at', Carbon::today())
+                            ->get();
+
+        dd($todayDistribution);
+
+        return view('courier.distribution-today', [
+            'todayDistribution' => $todayDistribution
         ]);
     }
 
