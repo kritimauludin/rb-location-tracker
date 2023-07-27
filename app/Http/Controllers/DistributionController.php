@@ -78,7 +78,6 @@ class DistributionController extends Controller
                             ->select('distribution_code', 'created_at', 'courier_code', 'total_newspaper')
                             ->get();
 
-                            // dd($distribution);
         return view('distribution.show', [
             'distribution' => $distribution[0],
         ]);
@@ -89,11 +88,15 @@ class DistributionController extends Controller
      */
     public function edit(Distribution $distribution)
     {
+        $distribution = Distribution::with(['courier', 'user_distribution'])
+                            ->where('distribution_code', $distribution->distribution_code)
+                            ->select('distribution_code', 'created_at', 'courier_code', 'total_newspaper')
+                            ->get();
         $couriers = User::where('role_id', 3)->get();
         $customers = Customer::all();
 
         return view('distribution.update', [
-            'distribution' => $distribution,
+            'distribution' => $distribution[0],
             'couriers'  => $couriers,
             'customers' => $customers
         ]);
