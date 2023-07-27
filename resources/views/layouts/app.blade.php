@@ -294,6 +294,7 @@
                     </a>
                 </li><!-- End Dashboard Nav -->
 
+                {{-- superadmin role --}}
                 @if (Auth::user()->role_id == 1)
                 <li class="nav-item">
                     <a class="nav-link collapsed" data-bs-target="#users-nav" data-bs-toggle="collapse"
@@ -355,6 +356,30 @@
                         </li>
                     </ul>
                 </li><!-- End distribution Nav -->
+
+
+                {{-- courier role --}}
+                {{-- @if (Auth::user()->role_id == 3) --}}
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" data-bs-target="#distributions-today-nav" data-bs-toggle="collapse"
+                            href="{{route('distribution.index')}}">
+                            <i class="bi bi-cursor"></i><span>Data Distribusi</span><i
+                                class="bi bi-chevron-down ms-auto"></i>
+                        </a>
+                        <ul id="distributions-today-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                            <li>
+                                <a href="{{route('distribution.index')}}">
+                                    <i class="bi bi-circle"></i><span>Lihat Distribusi Hari Ini</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{route('distribution.create')}}">
+                                    <i class="bi bi-circle"></i><span>Tambah Distribusi</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li><!-- End distribution for courier Nav -->
+                {{-- @endif --}}
 
                 <li class="nav-heading">Pages</li>
 
