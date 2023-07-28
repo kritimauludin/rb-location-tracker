@@ -81,16 +81,16 @@
                                     </div>
                                     <div class="form-group mb-3">
                                         <input type="text" id="latitude" name="latitude"
-                                            placeholder="Titik latitude (auto)"
-                                            value="{{ old('latitude') }}" readonly class="form-control @error('latitude') is-invalid @enderror" required>
+                                            placeholder="Titik latitude (auto / isi sendiri)"
+                                            value="{{ old('latitude') }}" class="form-control @error('latitude') is-invalid @enderror" required>
                                         @error('latitude')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="form-group mb-3">
                                         <input type="text" id="longitude" name="longitude"
-                                             placeholder="Titik longitude (auto)"
-                                            value="{{ old('longitude') }}" readonly class="form-control @error('longitude') is-invalid @enderror" required>
+                                             placeholder="Titik longitude (auto / isi sendiri)"
+                                            value="{{ old('longitude') }}" class="form-control @error('longitude') is-invalid @enderror" required>
                                         @error('longitude')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -98,7 +98,7 @@
                                 </div>
                                 <div class="col-lg-8">
                                     <input id="address" name="address" style="width: 50%; margin-top: 10px;" class="form-control @error('address') is-invalid @enderror"
-                                        type="text" value="{{old('address')}}"    placeholder="Tulis nama jalan / gedung / perumahan" required>
+                                        type="text" value="{{old('address')}}"    placeholder="Alamat (tulis nama jalan / gedung / perumahan)" required>
                                     <div id="map" style="height: 500px; border-radius: 25px;"></div>
                                     <script>
 
