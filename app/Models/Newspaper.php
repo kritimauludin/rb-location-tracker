@@ -14,4 +14,9 @@ class Newspaper extends Model
         'edition',
         'description'
     ];
+
+    public function getRouteKeyName()
+    {
+        return 'newspaper_code';
+    }
 }

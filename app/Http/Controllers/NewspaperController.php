@@ -37,7 +37,6 @@ class NewspaperController extends Controller
             'description'    => 'required'
         ]);
 
-        // dd($validNewspaper);
         Newspaper::create($validNewspaper);
 
         return redirect('/newspaper')->with('success', 'Data Koran berhasil ditambahkan !');
@@ -56,7 +55,9 @@ class NewspaperController extends Controller
      */
     public function edit(Newspaper $newspaper)
     {
-        //
+        return view('newspaper.update', [
+            'newspaper' => $newspaper
+        ]);
     }
 
     /**
@@ -64,7 +65,15 @@ class NewspaperController extends Controller
      */
     public function update(Request $request, Newspaper $newspaper)
     {
-        //
+        $validNewspaper = $request->validate([
+            'newspaper_code' => 'required',
+            'edition'        => 'required',
+            'description'    => 'required'
+        ]);
+
+        Newspaper::where('newspaper_code', $newspaper->newspaper_code)->update($validNewspaper);
+
+        return redirect('/newspaper')->with('success', 'Data Koran berhasil diubah !');
     }
 
     /**
@@ -72,6 +81,8 @@ class NewspaperController extends Controller
      */
     public function destroy(Newspaper $newspaper)
     {
-        //
+        Newspaper::where('newspaper_code', $newspaper->newspaper_code)->delete();
+        return redirect('/newspaper')->with('success', 'Koran kode '.$newspaper->newspaper_code.' berhasil dihapus!');
+
     }
 }
