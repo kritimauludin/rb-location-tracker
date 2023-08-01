@@ -318,6 +318,26 @@
                 @endif
 
                 <li class="nav-item">
+                    <a class="nav-link collapsed" data-bs-target="#newspapers-nav" data-bs-toggle="collapse"
+                        href="{{route('newspaper.index')}}">
+                        <i class="bi bi-newspaper"></i><span>Data Koran</span><i
+                            class="bi bi-chevron-down ms-auto"></i>
+                    </a>
+                    <ul id="newspapers-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                        <li>
+                            <a href="{{route('newspaper.index')}}">
+                                <i class="bi bi-circle"></i><span>Lihat Koran</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('newspaper.create')}}">
+                                <i class="bi bi-circle"></i><span>Tambah Koran</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li><!-- End newspapers Nav -->
+
+                <li class="nav-item">
                     <a class="nav-link collapsed" data-bs-target="#customers-nav" data-bs-toggle="collapse"
                         href="{{route('customer.index')}}">
                         <i class="bi bi-person-square"></i><span>Data Pelanggan</span><i

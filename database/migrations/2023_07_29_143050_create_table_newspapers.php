@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('newspapers_code', 100)->unique();
             $table->string('edition', 100);
+            $table->text('description');
             $table->timestamps();
         });
     }

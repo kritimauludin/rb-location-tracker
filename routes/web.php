@@ -3,6 +3,7 @@
 use App\Http\Controllers\AjaxRequestController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DistributionController;
+use App\Http\Controllers\NewspaperController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +34,7 @@ Route::post('/promote', [UserController::class, 'promote'])->middleware('auth');
 
 // Route resource controller
 Route::resource('user', UserController::class)->middleware('auth');
+Route::resource('newspaper', NewspaperController::class)->middleware('auth');
 Route::resource('customer', CustomerController::class)->middleware('auth');
 
 Route::get('/distribution/today', [DistributionController::class, 'todayDistribution'])->middleware('auth')->name('distribution.today');

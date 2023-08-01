@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Distribution;
+use App\Models\Newspaper;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -32,7 +33,12 @@ class AjaxRequestController extends Controller
             $distributionsToday = Distribution::whereDate('created_at', Carbon::today())->get();
             $last = count($distributionsToday) + 1;
             $code = 'DS' . date('Ymd') . $last;
-        } else {
+        } elseif ($request->type == 'newspaper'){
+            $newspapers = Newspaper::all();
+            $last = count($newspapers);
+            $code = 'NS'. date('Ymd') . $last;
+        }
+        else {
             $code = 404;
         }
 
