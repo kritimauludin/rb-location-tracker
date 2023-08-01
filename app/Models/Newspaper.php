@@ -10,7 +10,7 @@ class Newspaper extends Model
     use HasFactory;
 
     protected $fillable = [
-        'newspaperr_code',
+        'newspaper_code',
         'edition',
         'description'
     ];

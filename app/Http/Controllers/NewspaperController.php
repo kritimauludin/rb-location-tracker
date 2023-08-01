@@ -34,9 +34,10 @@ class NewspaperController extends Controller
         $validNewspaper = $request->validate([
             'newspaper_code' => 'required',
             'edition'        => 'required',
-            'description'      => 'required'
+            'description'    => 'required'
         ]);
 
+        // dd($validNewspaper);
         Newspaper::create($validNewspaper);
 
         return redirect('/newspaper')->with('success', 'Data Koran berhasil ditambahkan !');

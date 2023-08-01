@@ -35,7 +35,7 @@ class AjaxRequestController extends Controller
             $code = 'DS' . date('Ymd') . $last;
         } elseif ($request->type == 'newspaper'){
             $newspapers = Newspaper::all();
-            $last = count($newspapers);
+            $last = count($newspapers) + 1;
             $code = 'NS'. date('Ymd') . $last;
         }
         else {

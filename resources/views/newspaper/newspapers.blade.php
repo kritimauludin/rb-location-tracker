@@ -34,6 +34,7 @@
                                         <th scope="col">#</th>
                                         <th scope="col">Kode Koran</th>
                                         <th scope="col">Edisi</th>
+                                        <th scope="col">Deskripsi</th>
                                         <th scope="col">Aksi</th>
                                     </tr>
                                 </thead>
@@ -43,6 +44,7 @@
                                             <th scope="row">{{ $loop->iteration }}</th>
                                             <td>{{ $newspaper->newspaper_code }}</td>
                                             <td>{{ $newspaper->edition }}</td>
+                                            <td>{{ $newspaper->description }}</td>
                                             <td>
                                                 <a href=""> <i class="bi bi-eye m-1"></i></a>
                                                 <a href="/newspaper/{{$newspaper->newspaper_code}}/edit"> <i class="bi bi-pen m-1"></i></a>
