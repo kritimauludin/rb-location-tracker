@@ -37,7 +37,7 @@ class DistributionController extends Controller
                             ->whereDate('created_at', Carbon::today())
                             ->get();
 
-        dd($todayDistribution);
+        // dd($todayDistribution);
 
         return view('courier.distribution-today', [
             'todayDistribution' => $todayDistribution
