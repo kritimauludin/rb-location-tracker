@@ -161,10 +161,6 @@
                         </table>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
             </div>
         </div>
     </div><!-- End courier centered Modal-->
@@ -193,7 +189,8 @@
                             <tbody>
                                 @foreach ($customers as $customer)
                                     <tr class="CustomerData" data-customer-code="{{ $customer->customer_code }}"
-                                        class="CustomerData" data-customer-name="{{ $customer->customer_name }}">
+                                        class="CustomerData" data-customer-name="{{ $customer->customer_name }}"
+                                        class="CustomerData" data-customer-amount="{{ $customer->amount }}">
                                         <th scope="row">{{ $loop->iteration }}</th>
                                         <td>{{ $customer->customer_code }}</td>
                                         <td>{{ $customer->customer_name }}</td>
@@ -204,10 +201,6 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
@@ -229,7 +222,7 @@
                 $('#distribution_code').val(response);
             }
         });
-        $(document).on('keyup', ".total",function () {
+        function sumAll() {
             var totalNewspaper = 0;
 
             $('.total').each(function(){
@@ -237,7 +230,7 @@
             })
 
             $("#total_newspaper").val(totalNewspaper);
-        })
+        }
 
         // Modal courir
         $(document).on('click', '.CourierData', function(e) {
@@ -250,6 +243,7 @@
         $(document).on('click', '.CustomerData', function(e) {
                 document.getElementById("customer_code[" + customerIndex + "]").value = $(this).attr('data-customer-code');
                 document.getElementById("customer_name[" + customerIndex + "]").value = $(this).attr('data-customer-name');
+                document.getElementById("total[" + customerIndex + "]").value = $(this).attr('data-customer-amount');
                 customerIndex += 1;
                 fieldHtml =
                 `<div class="row">
@@ -281,6 +275,7 @@
             searchCustomerButton.removeAttr('style').hide();
             addButton.show();
             $('#customersmodal').modal('hide');
+            sumAll();
         });
 
         $(addButton).click(function() {

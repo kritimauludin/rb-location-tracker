@@ -37,6 +37,7 @@
                                         <th scope="col">Email</th>
                                         <th scope="col">Tgl. Join</th>
                                         <th scope="col">Tgl. Expire</th>
+                                        <th scope="col">Jumlah</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Aksi</th>
                                     </tr>
@@ -50,6 +51,7 @@
                                             <td>{{ $customer->email }}</td>
                                             <td>{{ $customer->join_date }}</td>
                                             <td>{{ $customer->expire_date }}</td>
+                                            <td>{{ $customer->amount }}</td>
                                             <td>
                                                 @if (now()->lt($customer->expire_date))
                                                     <span class="badge badge-sm bg-success">Aktif</span>

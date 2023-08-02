@@ -11,11 +11,13 @@ class Customer extends Model
 
     protected $fillable = [
         'customer_code',
+        'newspaper_code',
         'customer_name',
         'email',
         'phone_number',
         'join_date',
         'expire_date',
+        'amount',
         'address',
         'latitude',
         'longitude'

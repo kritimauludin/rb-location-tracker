@@ -52,8 +52,8 @@
                                                 {{ $user->role->role_name }}
                                             </td>
                                             <td>
-                                                <a href="/user/{{$user->id}}"> <i class="bi bi-eye m-1"></i></a>
-                                                <a href="/user/{{$user->id}}/edit"> <i class="bi bi-pen m-1"></i></a>
+                                                <a href="/user/{{$user->user_code}}"> <i class="bi bi-eye m-1"></i></a>
+                                                <a href="/user/{{$user->user_code}}/edit"> <i class="bi bi-pen m-1"></i></a>
                                                 <a href=""> <i class="bi bi-trash text-danger m-1"></i></a>
                                             </td>
                                         </tr>

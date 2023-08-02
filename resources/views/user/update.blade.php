@@ -16,7 +16,7 @@
                         <h5 class="card-title">Ubah Data Pengguna</h5>
 
                         <!-- General Form Elements -->
-                        <form action="/user/{{$user->id}}" method="POST" enctype="multipart/form-data">
+                        <form action="/user/{{$user->user_code}}" method="POST" enctype="multipart/form-data">
                             @method('put')
                             @csrf
                             <div class="row">

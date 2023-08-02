@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use App\Models\Customer;
+use App\Models\Newspaper;
 
 class CustomerController extends Controller
 {
@@ -16,7 +17,7 @@ class CustomerController extends Controller
         $customers = Customer::all();
 
         return view('customer.customers', [
-            'customers' => $customers
+            'customers' => $customers,
         ]);
     }
 
@@ -25,7 +26,11 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return view('customer.create');
+        $newspapers = Newspaper::all();
+
+        return view('customer.create', [
+            'newspapers' => $newspapers
+        ]);
     }
 
     /**
@@ -34,15 +39,17 @@ class CustomerController extends Controller
     public function store(StoreCustomerRequest $request)
     {
         $validCustomer = $request->validate([
-            'customer_code' => 'required',
-            'customer_name' => 'required',
-            'email' => 'required|email:dns|unique:customers',
-            'phone_number' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
-            'join_date' => 'required',
-            'expire_date' => 'required',
-            'address' => 'required',
-            'latitude' => 'required',
-            'longitude' => 'required',
+            'customer_code'     => 'required',
+            'newspaper_code'    => 'required',
+            'customer_name'     => 'required',
+            'email'             => 'required|email:dns|unique:customers',
+            'phone_number'      => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:7',
+            'join_date'         => 'required',
+            'expire_date'       => 'required',
+            'amount'            => 'required',
+            'address'           => 'required',
+            'latitude'          => ['required','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
+            'longitude'         => ['required','regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'],
         ]);
 
         Customer::create($validCustomer);

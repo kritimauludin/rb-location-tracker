@@ -14,11 +14,13 @@ return new class extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
             $table->string('customer_code', 100)->unique();
+            $table->string('newspaper_code', 100);
             $table->string('customer_name', 100);
             $table->string('email')->unique();
             $table->string('phone_number', 14);
             $table->date('join_date');
             $table->date('expire_date');
+            $table->integer('amount')->default(1);
             $table->text('address');
             $table->string('latitude');
             $table->string('longitude');

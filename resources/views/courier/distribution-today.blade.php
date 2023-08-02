@@ -32,7 +32,8 @@
                                         <th scope="col">#</th>
                                         <th scope="col">Edisi</th>
                                         <th scope="col">Nama Pelanggan</th>
-                                        <th scope="col">Alamat</th>
+                                        <th scope="col">Waktu Kelokasi</th>
+                                        <th scope="col">Jarak Anda</th>
                                         <th scope="col">Total Koran</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Aksi</th>
@@ -48,8 +49,9 @@
                                                 <th scope="row">{{ $index }}</th>
                                                 <td>{{ date_format($todayDistribution[$i]->created_at, 'd-m-Y') }}</td>
                                                 <td>{{ $distribution->customer->customer_name }}</td>
-                                                <td>{{ $distribution->customer->address }}</td>
-                                                <td>{{ $distribution->total}}</td>
+                                                <td><div class="d-inline" id="duration[{{$loop->iteration-1}}]"></div></td>
+                                                <td><div class="d-inline" id="distance[{{$loop->iteration-1}}]"></div></td>
+                                                <td>{{ $distribution->total }}</td>
                                                 <td>
                                                     @if ($distribution->status == 200)
                                                         <span class="badge bg-success">sampai</span>
@@ -63,7 +65,8 @@
                                                     @if ($distribution->status == 200)
                                                         <span class="badge bg-success">sampai</span>
                                                     @elseif($distribution->status == 201)
-                                                        <a href="#" class="btn btn-outline-info" onclick="return confirm(`Proses distribusi {{ $distribution->distribution_code }}?`);">Proses</a>
+                                                        <a href="#" class="btn btn-outline-info"
+                                                            onclick="return confirm(`Proses distribusi {{ $distribution->distribution_code }}?`);">Proses</a>
                                                     @endif
                                                 </td>
                                             </tr>
@@ -83,21 +86,60 @@
         @include('layouts.credits')
     </section>
 
+    {{-- <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script> --}}
+    @if (count($todayDistribution) != 0)
     <script>
+        var todayDistribution = <?php echo $todayDistribution[0]->user_distribution; ?>;
         function initAutocomplete() {
             const successCallback = (position) => {
-                console.log(position);
+                // initialize services
+                const geocoder = new google.maps.Geocoder();
+                const service = new google.maps.DistanceMatrixService();
+                // build request
+                const courierLocation = {
+                    lat: parseFloat(position.coords.latitude),
+                    lng: parseFloat(position.coords.longitude)
+                };
+
+                for(const index in todayDistribution){
+                    const customerLocation = {
+                        lat: parseFloat(todayDistribution[index].customer.latitude),
+                        lng: parseFloat(todayDistribution[index].customer.longitude)
+                    };
+
+                    const request = {
+                        origins: [courierLocation],
+                        destinations: [customerLocation],
+                        travelMode: google.maps.TravelMode.DRIVING,
+                        unitSystem: google.maps.UnitSystem.METRIC,
+                        avoidHighways: false,
+                        avoidTolls: false,
+                    };
+
+                    // get distance matrix response
+                    service.getDistanceMatrix(request).then((response) => {
+                        // put response
+                        console.log(response);
+                        document.getElementById("distance["+index+"]").innerText = response.rows[0].elements[0].distance.text;
+                        document.getElementById("duration["+index+"]").innerText = response.rows[0].elements[0].duration.text;
+                    });
+
+
+                }
             };
 
             const errorCallback = (error) => {
-                console.log(error);
+                // console.log(error);
             };
 
             const currentPosition = navigator.geolocation.watchPosition(successCallback, errorCallback);
 
-            console.log(currentPosition);
+            // console.log(currentPosition.latitude);
             // navigator.geolocation.clearWatch(currentPosition);
+
+
         }
     </script>
+    @endif
     @include('library.maps-api')
 @endsection

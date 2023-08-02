@@ -32,7 +32,7 @@ class DistributionController extends Controller
      */
     public function todayDistribution(Request $request){
         $todayDistribution = Distribution::with(['courier', 'user_distribution'])
-                            // ->where('courier_code', Auth::user()->user_code)
+                            ->where('courier_code', Auth::user()->user_code)
                             ->select('distribution_code', 'created_at', 'courier_code', 'total_newspaper')
                             ->whereDate('created_at', Carbon::today())
                             ->get();
