@@ -173,7 +173,7 @@
                                             <th scope="col">#</th>
                                             <th scope="col">Pelanggan</th>
                                             <th scope="col">Edisi</th>
-                                            <th scope="col">Nama kurir</th>
+                                            <th scope="col">Kode kurir</th>
                                             <th scope="col">Terakhir diperbarui</th>
                                             <th scope="col">Status</th>
                                         </tr>
@@ -182,9 +182,9 @@
                                         @foreach ($recentDistributions as $distribution)
                                             <tr>
                                                 <th scope="row"><a href="#">#{{$distribution->id}}</a></th>
-                                                <td>Radar Bogor</td>
-                                                <td><a href="#" class="text-primary">Koran Edisi 22 juni</a></td>
-                                                <td>Kurir</td>
+                                                <td>{{$distribution->customer->customer_name}}</td>
+                                                <td>Edisi {{$distribution->customer->newspaper_code}}</td>
+                                                <td>{{$distribution->distribution->courier_code}}</td>
                                                 <td>{{$distribution->updated_at}}</td>
                                                 <td>
                                                     @if ($distribution->status == 200)

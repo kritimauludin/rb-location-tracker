@@ -287,12 +287,14 @@
 
             <ul class="sidebar-nav" id="sidebar-nav">
 
+                @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
                 <li class="nav-item">
                     <a class="nav-link @if (Route::has('home')) active @endif" href="{{route('home')}}">
                         <i class="bi bi-grid"></i>
                         <span>Dashboard</span>
                     </a>
                 </li><!-- End Dashboard Nav -->
+                @endif
 
                 {{-- superadmin role --}}
                 @if (Auth::user()->role_id == 1)
@@ -317,6 +319,7 @@
                 </li><!-- End users Nav -->
                 @endif
 
+                @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
                 <li class="nav-item">
                     <a class="nav-link collapsed" data-bs-target="#newspapers-nav" data-bs-toggle="collapse"
                         href="{{route('newspaper.index')}}">
@@ -376,10 +379,11 @@
                         </li>
                     </ul>
                 </li><!-- End distribution Nav -->
+                @endif
 
 
                 {{-- courier role --}}
-                {{-- @if (Auth::user()->role_id == 3) --}}
+                @if (Auth::user()->role_id == 3)
                     <li class="nav-item">
                         <a class="nav-link collapsed" data-bs-target="#distributions-today-nav" data-bs-toggle="collapse"
                             href="{{route('distribution.index')}}">
@@ -399,7 +403,7 @@
                             </li>
                         </ul>
                     </li><!-- End distribution for courier Nav -->
-                {{-- @endif --}}
+                @endif
 
                 <li class="nav-heading">Pages</li>
 

@@ -8,6 +8,7 @@ use App\Models\Customer;
 use App\Models\Distribution;
 use App\Models\User;
 use App\Models\UserDistribution;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,23 +25,6 @@ class DistributionController extends Controller
                             ->get();
         return view('distribution.distributions', [
             'distributions' => $distributions,
-        ]);
-    }
-
-    /**
-     * Display a listing of the resource with query where.
-     */
-    public function todayDistribution(Request $request){
-        $todayDistribution = Distribution::with(['courier', 'user_distribution'])
-                            ->where('courier_code', Auth::user()->user_code)
-                            ->select('distribution_code', 'created_at', 'courier_code', 'total_newspaper')
-                            ->whereDate('created_at', Carbon::today())
-                            ->get();
-
-        // dd($todayDistribution);
-
-        return view('courier.distribution-today', [
-            'todayDistribution' => $todayDistribution
         ]);
     }
 
@@ -137,5 +121,49 @@ class DistributionController extends Controller
         Distribution::where('distribution_code', $distribution->distribution_code)->delete();
         UserDistribution::where('distribution_code', $distribution->distribution_code)->delete();
         return redirect('/distribution')->with('success', 'Alokasi disribusi kode '.$distribution->distribution_code.' berhasil dihapus!');
+    }
+
+    /**
+     * Display a listing of the resource with query where.
+     */
+    public function todayDistribution(Request $request){
+        $todayDistribution = Distribution::with(['courier', 'user_distribution'])
+                            ->where('courier_code', Auth::user()->user_code)
+                            ->select('distribution_code', 'created_at', 'courier_code', 'total_newspaper')
+                            ->whereDate('created_at', Carbon::today())
+                            ->get();
+
+        // dd($todayDistribution);
+
+        return view('courier.distribution-today', [
+            'todayDistribution' => $todayDistribution
+        ]);
+    }
+
+    public function updateStatus(Request $request) {
+        if($request->status == 'process'){
+            UserDistribution::where('id', $request->id)->update(['status' => 202]);
+        }else if($request->status == 'finish'){
+            UserDistribution::where('id', $request->id)->update(['status' => 200]);
+        }else{
+            return 500;
+        }
+
+        return redirect()->back()->with('success', 'Status berhasil diupdate !');
+    }
+
+    public function print(Request $request){
+        $distribution = Distribution::with(['courier', 'user_distribution'])
+                            ->where('distribution_code', $request->code)
+                            ->select('distribution_code', 'created_at', 'courier_code', 'total_newspaper')
+                            ->get();
+
+                            // dd($distribution);
+        $pdf = Pdf::loadView('distribution.print', [
+            'title' => 'Print '. $request->code,
+            'distribution' => $distribution[0],
+        ]);
+
+        return $pdf->stream('Alokasi '.$request->code.'.pdf');
     }
 }

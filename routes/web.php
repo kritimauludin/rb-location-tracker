@@ -35,11 +35,18 @@ Route::post('/promote', [UserController::class, 'promote'])->middleware('auth');
 // Route resource controller
 Route::resource('user', UserController::class)->middleware('auth');
 Route::resource('newspaper', NewspaperController::class)->middleware('auth');
+
+
+Route::get('/customer/generate-report', [CustomerController::class,'generateReport'])->middleware('auth');
 Route::resource('customer', CustomerController::class)->middleware('auth');
 
+Route::get('/distribution/print', [DistributionController::class,'print'])->middleware('auth');
 Route::get('/distribution/today', [DistributionController::class, 'todayDistribution'])->middleware('auth')->name('distribution.today');
+Route::get('/distribution/update-status', [DistributionController::class, 'updateStatus'])->middleware('auth')->name('distribution.update-status');
 Route::get('/distribution/report', [DistributionController::class, 'reportDistribution'])->middleware('auth')->name('distribution.report');
 Route::resource('distribution', DistributionController::class)->middleware('auth');
 
 //generate new code
 Route::get('/getnewcode', [AjaxRequestController::class, 'getNewCode'])->middleware('auth');
+
+

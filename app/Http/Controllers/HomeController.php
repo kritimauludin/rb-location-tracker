@@ -31,7 +31,8 @@ class HomeController extends Controller
         $admins = User::where('role_id', '2')->get();
         $couriers = User::where('role_id', '3')->get();
         $customers = Customer::select('customer_name', 'join_date', 'expire_date', 'latitude', 'longitude', 'updated_at')->get();
-        $recentDistributions = UserDistribution::whereDate('created_at', Carbon::today())->get();
+        $recentDistributions = UserDistribution::whereDate('created_at', Carbon::today())->with(['customer', 'distribution'])->get();
+        // dd($recentDistributions);
 
         //count
         $totalAdmin = count($admins);

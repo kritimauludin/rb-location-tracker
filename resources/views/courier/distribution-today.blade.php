@@ -62,12 +62,17 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    @if ($distribution->status == 200)
-                                                        <span class="badge bg-success">sampai</span>
+                                                    @if ($distribution->status == 202)
+                                                        <a href="/distribution/update-status?id={{$distribution->id}}&status=finish"
+                                                            onclick="return confirm(`Distribusi ke {{ $distribution->customer->customer_name }} telah selesai?`);"><i class="bi bi-check-all h3 m-1"></i></a>
                                                     @elseif($distribution->status == 201)
-                                                        <a href="#" class="btn btn-outline-info"
-                                                            onclick="return confirm(`Proses distribusi {{ $distribution->distribution_code }}?`);">Proses</a>
+                                                            <a href="/distribution/update-status?id={{$distribution->id}}&status=process"
+                                                                onclick="return confirm(`Proses distribusi ke {{ $distribution->customer->customer_name }}?`);"><i class="bi bi-cursor-fill h3 m-1"></i></a>
                                                     @endif
+                                                    <a target="blank" id="direction[{{$loop->iteration-1}}]" href="#"
+                                                    onclick="return confirm(`Alihkan ke maps untuk petunjuk kelokasi tersebut?`);">
+                                                        <i class="bi bi-compass h3 m-1"></i>
+                                                    </a>
                                                 </td>
                                             </tr>
                                             @php $index++; @endphp
@@ -119,7 +124,7 @@
                     // get distance matrix response
                     service.getDistanceMatrix(request).then((response) => {
                         // put response
-                        console.log(response);
+                        document.getElementById("direction["+index+"]").href="https://www.google.com/maps/dir/?api=1&origin="+courierLocation.lat+","+courierLocation.lng+"&destination="+customerLocation.lat+","+customerLocation.lng+"&travelmode=driving&dir_action=navigate";
                         document.getElementById("distance["+index+"]").innerText = response.rows[0].elements[0].distance.text;
                         document.getElementById("duration["+index+"]").innerText = response.rows[0].elements[0].duration.text;
                     });
@@ -134,7 +139,6 @@
 
             const currentPosition = navigator.geolocation.watchPosition(successCallback, errorCallback);
 
-            // console.log(currentPosition.latitude);
             // navigator.geolocation.clearWatch(currentPosition);
 
 

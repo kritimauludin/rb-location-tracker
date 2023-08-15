@@ -46,7 +46,7 @@
                                             <td>{{ $newspaper->edition }}</td>
                                             <td>{{ $newspaper->description }}</td>
                                             <td>
-                                                <a href=""> <i class="bi bi-eye m-1"></i></a>
+                                                <a href=""  onclick="return alert('Fitur dalam pengembangan !');"> <i class="bi bi-eye m-1"></i></a>
                                                 <a href="/newspaper/{{$newspaper->newspaper_code}}/edit"> <i class="bi bi-pen m-1"></i></a>
                                                 <form action="/newspaper/{{ $newspaper->newspaper_code }}" method="POST" class="d-inline">
                                                     @method('DELETE')

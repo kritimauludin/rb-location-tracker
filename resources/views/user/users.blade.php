@@ -13,8 +13,6 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Data Pengguna</h5>
-                        {{-- <a href="/customer/create" class="text-right position-absolute end-0 top-0 m-4 h3"> <i
-                                class="bi bi-person-plus m-1"></i></a> --}}
 
                         {{-- alert --}}
                         @if (session()->has('success'))
@@ -52,9 +50,14 @@
                                                 {{ $user->role->role_name }}
                                             </td>
                                             <td>
-                                                <a href="/user/{{$user->user_code}}"> <i class="bi bi-eye m-1"></i></a>
+                                                <a href="/user/{{$user->user_code}}" onclick="return alert('Fitur dalam pengembangan !');"> <i class="bi bi-eye m-1"></i></a>
                                                 <a href="/user/{{$user->user_code}}/edit"> <i class="bi bi-pen m-1"></i></a>
-                                                <a href=""> <i class="bi bi-trash text-danger m-1"></i></a>
+                                                <form action="/user/{{ $user->user_code }}" method="POST" class="d-inline">
+                                                    @method('DELETE')
+                                                    @csrf
+                                                    <button class="border-0 bg-transparant" style="background-color: transparent;"
+                                                        onclick="return confirm(`Hapus penguna {{ $user->user_code }}?`);"><i class="bi bi-trash text-danger m-1"></i></button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach

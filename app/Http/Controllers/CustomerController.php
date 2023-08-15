@@ -6,6 +6,7 @@ use App\Http\Requests\StoreCustomerRequest;
 use App\Http\Requests\UpdateCustomerRequest;
 use App\Models\Customer;
 use App\Models\Newspaper;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class CustomerController extends Controller
 {
@@ -85,12 +86,12 @@ class CustomerController extends Controller
             'customer_code' => 'required',
             'customer_name' => 'required',
             'email' => 'required|email:dns',
-            'phone_number' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
+            'phone_number' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:7',
             'join_date' => 'required',
             'expire_date' => 'required',
             'address' => 'required',
-            'latitude' => 'required',
-            'longitude' => 'required',
+            'latitude' => ['required','regex:/^[-]?(([0-8]?[0-9])\.(\d+))|(90(\.0+)?)$/'],
+            'longitude' => ['required','regex:/^[-]?((((1[0-7][0-9])|([0-9]?[0-9]))\.(\d+))|180(\.0+)?)$/'],
         ]);
 
         Customer::where('customer_code', $customer->customer_code)->update($validCustomer);
@@ -105,5 +106,18 @@ class CustomerController extends Controller
     {
         Customer::where('customer_code', $customer->customer_code)->delete();
         return redirect('/customer')->with('success', 'Pelanggan kode '.$customer->customer_code.' berhasil dihapus!');
+    }
+
+    /**
+     * Print the specified resource from storage.
+     */
+    public function generateReport()
+    {
+        $customers = Customer::all();
+        // dd($customers);
+        $pdf = Pdf::loadView('customer.generate-report', [
+            'customers' => $customers->toArray()
+        ]);
+        return $pdf->stream('Customer'.date('d-m-y').'pdf');
     }
 }

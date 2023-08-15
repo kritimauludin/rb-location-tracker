@@ -16,6 +16,10 @@ class UserController extends Controller
         ]);
     }
 
+    public function show(User $user){
+
+    }
+
     public function edit(User $user) {
         $roles  = Role::where('id', '!=', '4')->get();
         return view('user.update', [
@@ -38,7 +42,8 @@ class UserController extends Controller
 
         return redirect('/user')->with('success', 'Data pengguna berhasil diubah !');
     }
-    public function promote(){
-
+    public function destroy(User $user){
+        User::where('user_code', $user->user_code)->delete();
+        return redirect('/user')->with('success', 'Pengguna berhasil dihapus!');
     }
 }

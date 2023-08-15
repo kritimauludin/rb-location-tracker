@@ -90,7 +90,7 @@
                                     <div class="col-lg-2">
                                         <div class="form-group mb-3">
                                             <input type="number" id="total['{{$loop->iteration}}']" name="total['{{$loop->iteration}}']" placeholder="Total"
-                                                value="{{ old('total['.$loop->iteration.']', $distribution->total) }}" class="form-control @error('total['.$loop->iteration.']') is-invalid @enderror text-center total" required>
+                                                value="{{ old('total['.$loop->iteration.']', $distribution->total) }}" class="form-control @error('total['.$loop->iteration.']') is-invalid @enderror text-center total" readonly required>
                                             @error('total['.$loop->iteration.']')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -98,13 +98,6 @@
                                     </div>
                                 </div>
                             @endforeach
-                            <div class="field-customer"></div>
-                            <div class="row">
-                                <div class="col-lg-12 text-center">
-                                    <a href="javascript:void(0);" id="add-field-customer" class="h3"><i
-                                            class="bi bi-clipboard-plus"></i></a>
-                                </div>
-                            </div>
                             <div class="row mt-5">
                                 <div class="col-sm-12 text-center">
                                     <button class="btn btn-outline-primary" type="submit">Kirim</button>
@@ -214,9 +207,7 @@
 
     {{-- js function --}}
     <script type="text/javascript">
-        var addButton = $('#add-field-customer');
         var searchCustomerButton = $('#search-customer-button');
-        var field = $('.field-customer');
         var customerIndex = 0;
         var fieldHtml = '';
 
@@ -242,41 +233,7 @@
                 document.getElementById("customer_code[" + customerIndex + "]").value = $(this).attr('data-customer-code');
                 document.getElementById("customer_name[" + customerIndex + "]").value = $(this).attr('data-customer-name');
                 customerIndex += 1;
-                fieldHtml =
-                `<div class="row">
-                    <div class="col-lg-2"></div>
-                    <div class="col-lg-2 text-center">
-                        <button type="button" class="btn btn-outline-primary" id="search-customer-button" data-bs-toggle="modal"
-                                            data-bs-target="#customersmodal" style="display: block;">Ganti Pelanggan</button>
-                    </div>
-                    <div class="col-lg-8">
-                        <div class="form-group mb-3">
-                            <input type="hidden" id="customer_code[` + customerIndex + `]" name="customer_code[` +
-                    customerIndex + `]">
-                            <input type="text" id="customer_name[` + customerIndex + `]" name="customer_name[` +
-                    customerIndex + `]"
-                                @error('customer_name[`+customerIndex+`]') is-invalid @enderror placeholder="Nama Pelanggan (auto)"
-                                    value="{{ old('customer_name[`+customerIndex+`]') }}" readonly class="form-control text-center" required>
-                                @error('customer_name[`+customerIndex+`]')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4">
-                        <div class="form-group mb-3">
-                            <input type="number" id="total[` + customerIndex + `]" name="total[` + customerIndex + `]"
-                                @error('total[`+customerIndex+`]') is-invalid @enderror placeholder="Total"
-                                value="{{ old('total[`+customerIndex+`]') }}" class="form-control text-center total" required>
-                            @error('total')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-                    </div>
-                </div>`;
-            searchCustomerButton.removeAttr('style').hide();
-            addButton.show();
-            $('#customersmodal').modal('hide');
+                $('#customersmodal').modal('hide');
         });
 
         $(addButton).click(function() {

@@ -48,6 +48,13 @@
             </ul>
             <div class="tab-content pt-2">
 
+                {{-- alert --}}
+                @if (Auth::user()->role_id == 4)
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="bi bi-check-circle me-1"></i>
+                    Menunggu promote admin, silahkan lengkapi data terlebih dahulu
+                </div>
+            @endif
               <div class="tab-pane fade show active profile-overview" id="profile-overview">
                 <h5 class="card-title">Profile Details</h5>
 
