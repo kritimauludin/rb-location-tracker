@@ -72,16 +72,15 @@
                                 <div class="row">
                                     <div class="col-lg-2"></div>
                                     <div class="col-lg-2 text-center">
-                                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal"
-                                            data-bs-target="#customersmodal" style="display: block;">Ganti Pelanggan</button>
+                                        <button type="button" class="btn btn-outline-primary" onclick="changeCustomer({{$loop->iteration}})" style="display: block;">Ganti Pelanggan</button>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group mb-3">
-                                            <input type="hidden" id="customer_code['{{$loop->iteration}}']" name="customer_code['{{$loop->iteration}}']"  value="{{$distribution->customer_code}}">
-                                            <input type="text" id="customer_name['{{$loop->iteration}}']" name="customer_name['{{$loop->iteration}}']"
+                                            <input type="hidden" id="customer_code[{{$loop->iteration}}]" name="customer_code[{{$loop->iteration}}]"  value="{{$distribution->customer_code}}">
+                                            <input type="text" id="customer_name[{{$loop->iteration}}]" name="customer_name[{{$loop->iteration}}]"
                                                 placeholder="Nama Pelanggan (auto)"
                                                 value="{{ old('customer_name['.$loop->iteration.']', $distribution->customer->customer_name) }}" readonly
-                                                class="form-control  @error('customer_name['.$loop->iteration.']') is-invalid @enderror text-center" required>
+                                                class="form-control  @error('customer_name[{{$loop->iteration}}]') is-invalid @enderror text-center" required>
                                             @error('customer_name['.$loop->iteration.']')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -90,7 +89,7 @@
                                     <div class="col-lg-2">
                                         <div class="form-group mb-3">
                                             <input type="number" id="total['{{$loop->iteration}}']" name="total['{{$loop->iteration}}']" placeholder="Total"
-                                                value="{{ old('total['.$loop->iteration.']', $distribution->total) }}" class="form-control @error('total['.$loop->iteration.']') is-invalid @enderror text-center total" readonly required>
+                                                value="{{ old('total['.$loop->iteration.']', $distribution->total) }}" class="form-control @error('total[{{$loop->iteration}}]') is-invalid @enderror text-center total" readonly required>
                                             @error('total['.$loop->iteration.']')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -172,7 +171,7 @@
                 <div class="modal-body">
                     <p>klik dibaris data untuk memilih pelanggan</p>
                     <div class="table-responsive">
-                        <table class="table table-hover datatable">
+                        <table class="table table-hover">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -209,7 +208,8 @@
     <script type="text/javascript">
         var searchCustomerButton = $('#search-customer-button');
         var customerIndex = 0;
-        var fieldHtml = '';
+        const searchParams = new URLSeacrhParams(window.location.search);
+
 
         $(document).on('keyup', ".total",function () {
             var totalNewspaper = 0;
@@ -228,18 +228,16 @@
             $('#couriermodal').modal('hide');
         });
 
-        // Modal customer
-        $(document).on('click', '.CustomerData', function(e) {
-                document.getElementById("customer_code[" + customerIndex + "]").value = $(this).attr('data-customer-code');
-                document.getElementById("customer_name[" + customerIndex + "]").value = $(this).attr('data-customer-name');
-                customerIndex += 1;
-                $('#customersmodal').modal('hide');
-        });
 
-        $(addButton).click(function() {
-            searchCustomerButton.show();
-            addButton.removeAttr("style").hide();
-            $(field).append(fieldHtml);
-        });
+        function changeCustomer(index) {
+			$('#customersmodal').modal('show');
+			$(".CustomerData").attr('data-customer-id', index);
+
+			$(document).on('click', '.CustomerData', function(e) {
+				document.getElementById("customer_code[" + $(this).attr('data-customer-id') + "]").value = $(this).attr('data-customer-code');
+                document.getElementById("customer_name[" + $(this).attr('data-customer-id') + "]").value = $(this).attr('data-customer-name');
+				$('#customersmodal').modal('hide');
+			});
+		};
     </script>
 @endsection

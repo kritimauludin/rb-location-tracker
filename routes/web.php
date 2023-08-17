@@ -3,6 +3,8 @@
 use App\Http\Controllers\AjaxRequestController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DistributionController;
+use App\Http\Controllers\GeneralController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewspaperController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -18,10 +20,7 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [GeneralController::class, 'landingPage'])->name('/')->middleware('guest');
 
 Auth::routes([
     'verify' => true

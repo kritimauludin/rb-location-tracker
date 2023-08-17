@@ -30,7 +30,11 @@
     <link href="{{ asset('assets') }}/vendor/datatables/style.css" rel="stylesheet">
 
     <!-- Template Main CSS File -->
-    <link href="{{ asset('assets') }}/css/style.css" rel="stylesheet">
+    @if (Auth::check())
+        <link href="{{ asset('assets') }}/css/style.css" rel="stylesheet">
+    @else
+        <link href="{{ asset('assets') }}/css/landing-page.css" rel="stylesheet">
+    @endif
 
     <!-- leaflet CSS -->
     <link
@@ -417,18 +421,21 @@
             </ul>
 
         </aside><!-- End Sidebar-->
+
+        <main id="main" class="main">
+            <div class="container">
+
+                @yield('content')
+
+            </div>
+        </main><!-- End #main -->
+
+        <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+                class="bi bi-arrow-up-short"></i></a>
+    @else
+        @yield('content')
     @endif
 
-    <main @if (Auth::check() && Auth::user()->email_verified_at != null) id="main" class="main" @endif>
-        <div class="container">
-
-            @yield('content')
-
-        </div>
-    </main><!-- End #main -->
-
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-            class="bi bi-arrow-up-short"></i></a>
 
     <!-- Vendor JS Files -->
     <script src="{{ asset('assets') }}/vendor/apexcharts/apexcharts.min.js"></script>

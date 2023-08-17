@@ -57,7 +57,13 @@
     L.marker([data.latitude ?? 0, data.longitude ?? 0])
       .addTo(map)
       .bindPopup(
-        `<b>${data.customer_name}</b><br>Tgl. Join: ${data.join_date}<br>Tgl. Expire: ${data.expire_date}<br>Terakhir Diperbaharui:<br>${data.updated_at}`
+        `<b>${data.customer_name}</b>`
+        + <?php if(Auth::check()) : ?>
+            `<br>Tgl. Join: ${data.join_date}<br>Tgl. Expire: ${data.expire_date}<br>Terakhir Diperbaharui:<br>${data.updated_at}`
+            <?php else :?>
+            ``
+          <?php endif;?>
+
       );
   }
 

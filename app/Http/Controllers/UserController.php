@@ -32,7 +32,7 @@ class UserController extends Controller
         $validCustomer = $request->validate([
             'user_code' => 'required',
             'name' => 'required',
-            'email' => 'required|email:dns',
+            'email' => 'required',
             'phone_number' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:10',
             'address' => 'required',
             'role_id' => 'max:255'

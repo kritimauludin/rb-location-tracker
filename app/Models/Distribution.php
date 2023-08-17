@@ -28,4 +28,8 @@ class Distribution extends Model
     public function courier(){
         return $this->belongsTo(User::class, 'courier_code', 'user_code');
     }
+
+    public function newspaper(){
+        return $this->belongsTo(Newspaper::class, 'newspaper_code', 'newspaper_code');
+    }
 }

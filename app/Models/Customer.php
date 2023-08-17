@@ -31,4 +31,8 @@ class Customer extends Model
     public function user_distribution() {
         return $this->hasMany(UserDistribution::class, 'customer_code', 'customer_code');
     }
+
+    public function newspaper(){
+        return $this->belongsTo(Newspaper::class, 'newspaper_code', 'newspaper_code');
+    }
 }

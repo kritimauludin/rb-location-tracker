@@ -63,7 +63,7 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <a href="#" onclick="return alert('Fitur dalam pengembangan !');"> <i class="bi bi-eye m-1"></i></a>
+                                                <a href="/customer/{{$customer->customer_code}}" <i class="bi bi-eye m-1"></i></a>
                                                 <a href="/customer/{{$customer->customer_code}}/edit"> <i class="bi bi-pen m-1"></i></a>
                                                 <form action="/customer/{{ $customer->customer_code }}" method="POST" class="d-inline">
                                                     @method('DELETE')

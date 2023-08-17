@@ -120,15 +120,20 @@
                         avoidHighways: false,
                         avoidTolls: false,
                     };
+                    if(todayDistribution[index].status != 200){
 
-                    // get distance matrix response
-                    service.getDistanceMatrix(request).then((response) => {
-                        // put response
+                        // get distance matrix response
+                        service.getDistanceMatrix(request).then((response) => {
+                            // put response
+                            document.getElementById("direction["+index+"]").href="https://www.google.com/maps/dir/?api=1&origin="+courierLocation.lat+","+courierLocation.lng+"&destination="+customerLocation.lat+","+customerLocation.lng+"&travelmode=driving&dir_action=navigate";
+                            document.getElementById("distance["+index+"]").innerText = response.rows[0].elements[0].distance.text;
+                            document.getElementById("duration["+index+"]").innerText = response.rows[0].elements[0].duration.text;
+                        });
+                    }else {
                         document.getElementById("direction["+index+"]").href="https://www.google.com/maps/dir/?api=1&origin="+courierLocation.lat+","+courierLocation.lng+"&destination="+customerLocation.lat+","+customerLocation.lng+"&travelmode=driving&dir_action=navigate";
-                        document.getElementById("distance["+index+"]").innerText = response.rows[0].elements[0].distance.text;
-                        document.getElementById("duration["+index+"]").innerText = response.rows[0].elements[0].duration.text;
-                    });
-
+                        document.getElementById("distance["+index+"]").innerText = 'Selesai';
+                        document.getElementById("duration["+index+"]").innerText = 'Selesai';
+                    }
 
                 }
             };

@@ -63,7 +63,10 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        //
+        $customer = Customer::where('customer_code', $customer->customer_code)->with('newspaper')->first();
+        return view('customer.show', [
+            'customer' => $customer
+        ]);
     }
 
     /**

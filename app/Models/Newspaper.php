@@ -19,4 +19,8 @@ class Newspaper extends Model
     {
         return 'newspaper_code';
     }
+
+    public function customer(){
+        return $this->hasMany(Customer::class, 'newspaper_code', 'newspaper_code');
+    }
 }
