@@ -51,7 +51,9 @@
                                             </td>
                                             <td>
                                                 <a href="/distribution/{{$distribution->distribution_code}}"> <i class="bi bi-eye m-1"></i></a>
-                                                <a href="/distribution/{{$distribution->distribution_code}}/edit"> <i class="bi bi-pen m-1"></i></a>
+                                                @if (date("Y-m-d") <=  $distribution->created_at)
+                                                    <a href="/distribution/{{$distribution->distribution_code}}/edit"> <i class="bi bi-pen m-1"></i></a>
+                                                @endif
                                                 <a href="/distribution/print?code={{$distribution->distribution_code }}" target="_blank"> <i class="bi bi-printer m-1"></i></a>
                                                 <form action="/distribution/{{ $distribution->distribution_code }}" method="POST" class="d-inline">
                                                     @method('DELETE')

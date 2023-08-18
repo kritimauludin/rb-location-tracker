@@ -37,7 +37,7 @@ class DistributionPolicy
      */
     public function update(User $user, Distribution $distribution): bool
     {
-        //
+        return true;
     }
 
     /**

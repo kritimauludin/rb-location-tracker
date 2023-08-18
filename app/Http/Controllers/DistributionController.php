@@ -110,7 +110,29 @@ class DistributionController extends Controller
      */
     public function update(UpdateDistributionRequest $request, Distribution $distribution)
     {
-        //
+        // dd($request);
+        $validDistribution = $request->validate([
+            'courier_code'      => 'required',
+            'total_newspaper'   => 'required'
+        ]);
+
+        if($validDistribution){
+            foreach ($distribution->user_distribution as $userDistribution){
+                $newCustomer = $request->customer_code[$userDistribution->id];
+                $newTotal = $request->total[$userDistribution->id];
+                $validUserDistribution = [
+                    'distribution_code' =>  $distribution->distribution_code,
+                    'customer_code' => $newCustomer,
+                    'total' => $newTotal,
+                    'updated_at' => date("Y-m-d H:i:s"),
+                ];
+                UserDistribution::where('id', $userDistribution->id)->update($validUserDistribution);
+            }
+        }
+
+        Distribution::where('distribution_code', $distribution->distribution_code)->update($validDistribution);
+        return redirect('/distribution')->with('success', 'Alokasi distribusi kurir berhasil diubah !');
+
     }
 
     /**

@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="form-group mb-3">
-                                        <input type="hidden" id="courier_code" name="courier_code" value="{{ old('courier_code', $distribution->courier->code ) }}">
+                                        <input type="hidden" id="courier_code" name="courier_code" value="{{ old('courier_code', $distribution->courier->user_code ) }}">
                                         <input type="text" id="courier_name" name="courier_name"
                                              placeholder="Nama Kurir (auto)"
                                             value="{{ old('courier_name', $distribution->courier->name ) }}" readonly class="form-control @error('courier_name') is-invalid @enderror text-center"
@@ -72,25 +72,26 @@
                                 <div class="row">
                                     <div class="col-lg-2"></div>
                                     <div class="col-lg-2 text-center">
-                                        <button type="button" class="btn btn-outline-primary" onclick="changeCustomer({{$loop->iteration}})" style="display: block;">Ganti Pelanggan</button>
+                                        <button type="button" class="btn btn-outline-primary" onclick="changeCustomer({{$distribution->id}})" style="display: block;">Ganti Pelanggan</button>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group mb-3">
-                                            <input type="hidden" id="customer_code[{{$loop->iteration}}]" name="customer_code[{{$loop->iteration}}]"  value="{{$distribution->customer_code}}">
-                                            <input type="text" id="customer_name[{{$loop->iteration}}]" name="customer_name[{{$loop->iteration}}]"
+                                            <input type="hidden" id="id[{{$distribution->id}}]" name="id[{{$distribution->id}}]"  value="{{$distribution->id}}">
+                                            <input type="hidden" id="customer_code[{{$distribution->id}}]" name="customer_code[{{$distribution->id}}]"  value="{{$distribution->customer_code}}">
+                                            <input type="text" id="customer_name[{{$distribution->id}}]" name="customer_name[{{$distribution->id}}]"
                                                 placeholder="Nama Pelanggan (auto)"
-                                                value="{{ old('customer_name['.$loop->iteration.']', $distribution->customer->customer_name) }}" readonly
-                                                class="form-control  @error('customer_name[{{$loop->iteration}}]') is-invalid @enderror text-center" required>
-                                            @error('customer_name['.$loop->iteration.']')
+                                                value="{{ old('customer_name['.$distribution->id.']', $distribution->customer->customer_name) }}" readonly
+                                                class="form-control  @error('customer_name[{{$distribution->id}}]') is-invalid @enderror text-center" required>
+                                            @error('customer_name['.$distribution->id.']')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
                                     </div>
                                     <div class="col-lg-2">
                                         <div class="form-group mb-3">
-                                            <input type="number" id="total['{{$loop->iteration}}']" name="total['{{$loop->iteration}}']" placeholder="Total"
-                                                value="{{ old('total['.$loop->iteration.']', $distribution->total) }}" class="form-control @error('total[{{$loop->iteration}}]') is-invalid @enderror text-center total" readonly required>
-                                            @error('total['.$loop->iteration.']')
+                                            <input type="number" id="total[{{$distribution->id}}]" name="total[{{$distribution->id}}]" placeholder="Total"
+                                                value="{{ old('total['.$distribution->id.']', $distribution->total) }}" class="form-control @error('total[{{$distribution->id}}]') is-invalid @enderror text-center total" readonly required>
+                                            @error('total['.$distribution->id.']')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -177,18 +178,19 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Kode Pelanggan</th>
                                     <th scope="col">Nama Pelanggan</th>
-                                    <th scope="col">Email</th>
+                                    <th scope="col">Total Langganan</th>
                                     <th scope="col">Phone Number</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($customers as $customer)
                                     <tr class="CustomerData" data-customer-code="{{ $customer->customer_code }}"
-                                        class="CustomerData" data-customer-name="{{ $customer->customer_name }}">
+                                        class="CustomerData" data-customer-name="{{ $customer->customer_name }}"
+                                        class="CustomerData" data-customer-total="{{ $customer->amount }}">
                                         <th scope="row">{{ $loop->iteration }}</th>
                                         <td>{{ $customer->customer_code }}</td>
                                         <td>{{ $customer->customer_name }}</td>
-                                        <td>{{ $customer->email }}</td>
+                                        <td>{{ $customer->amount }}</td>
                                         <td>{{ $customer->phone_number }}</td>
                                     </tr>
                                 @endforeach
@@ -208,10 +210,9 @@
     <script type="text/javascript">
         var searchCustomerButton = $('#search-customer-button');
         var customerIndex = 0;
-        const searchParams = new URLSeacrhParams(window.location.search);
 
 
-        $(document).on('keyup', ".total",function () {
+        function sumAll() {
             var totalNewspaper = 0;
 
             $('.total').each(function(){
@@ -219,7 +220,7 @@
             })
 
             $("#total_newspaper").val(totalNewspaper);
-        })
+        }
 
         // Modal courir
         $(document).on('click', '.CourierData', function(e) {
@@ -236,7 +237,9 @@
 			$(document).on('click', '.CustomerData', function(e) {
 				document.getElementById("customer_code[" + $(this).attr('data-customer-id') + "]").value = $(this).attr('data-customer-code');
                 document.getElementById("customer_name[" + $(this).attr('data-customer-id') + "]").value = $(this).attr('data-customer-name');
+                document.getElementById("total[" + $(this).attr('data-customer-id') + "]").value = $(this).attr('data-customer-total');
 				$('#customersmodal').modal('hide');
+                sumAll();
 			});
 		};
     </script>
