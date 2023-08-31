@@ -126,85 +126,6 @@
 
                     </div><!-- End Customers Card -->
 
-
-                    <!-- Reports -->
-                    <div class="col-12">
-
-                        <div class="card">
-
-                            <div class="card-body">
-                                <h5 class="card-title">Customer Area <span>/Today</span></h5>
-
-                                <!-- id for set map customer area -->
-                                <div id="map" style="height: 600px; "></div>
-
-                                @include('library.leaflet-ploating')
-                                <!-- End Line Chart -->
-
-                            </div>
-
-                        </div>
-                    </div><!-- End Reports -->
-
-                    <!-- Recent Sales -->
-                    <div class="col-12">
-                        <div class="card recent-sales overflow-auto">
-
-                            <div class="filter">
-                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
-                                        class="bi bi-three-dots"></i></a>
-                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                    <li class="dropdown-header text-start">
-                                        <h6>Filter</h6>
-                                    </li>
-
-                                    <li><a class="dropdown-item" href="#">Today</a></li>
-                                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                                </ul>
-                            </div>
-
-                            <div class="card-body">
-                                <h5 class="card-title">Recent Distribution <span>| Today</span></h5>
-
-                                <table class="table table-borderless datatable">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">#</th>
-                                            <th scope="col">Pelanggan</th>
-                                            <th scope="col">Edisi</th>
-                                            <th scope="col">Kode kurir</th>
-                                            <th scope="col">Terakhir diperbarui</th>
-                                            <th scope="col">Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($recentDistributions as $distribution)
-                                            <tr>
-                                                <th scope="row"><a href="#">#{{$distribution->id}}</a></th>
-                                                <td>{{$distribution->customer->customer_name}}</td>
-                                                <td>Edisi {{$distribution->customer->newspaper_code}}</td>
-                                                <td>{{$distribution->distribution->courier_code}}</td>
-                                                <td>{{$distribution->updated_at}}</td>
-                                                <td>
-                                                    @if ($distribution->status == 200)
-                                                        <span class="badge bg-success">sampai</span>
-                                                    @elseif($distribution->status == 201)
-                                                        <span class="badge bg-primary">menunggu</span>
-                                                    @else
-                                                        <span class="badge bg-warning">diperjalanan</span>
-                                                    @endif
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-
-                            </div>
-
-                        </div>
-                    </div><!-- End Recent Sales -->
-
                 </div>
             </div><!-- End Left side columns -->
 
@@ -234,7 +155,7 @@
                                 <i class="bi bi-newspaper"></i>
                             </div>
                             <div class="ps-3">
-                                <h6>{{$totalDistributionToday}}</h6>
+                                <h6>{{ $totalDistributionToday }}</h6>
                                 <span class="text-success small pt-1 fw-bold">--</span> <span
                                     class="text-muted small pt-2 ps-1">koran</span>
 
@@ -244,7 +165,7 @@
 
                 </div><!-- End distribusi koran Card -->
 
-                <!-- Recent Activity -->
+                {{-- <!-- Recent Activity -->
                 <div class="card">
                     <div class="filter">
                         <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
@@ -272,7 +193,7 @@
                                     beatae
                                 </div>
                             </div><!-- End activity item-->
-{{--
+
                             <div class="activity-item d-flex">
                                 <div class="activite-label">56 min</div>
                                 <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
@@ -312,15 +233,15 @@
                                 <div class="activity-content">
                                     Dicta dolorem harum nulla eius. Ut quidem quidem sit quas
                                 </div>
-                            </div><!-- End activity item--> --}}
+                            </div><!-- End activity item-->
 
                         </div>
 
                     </div>
-                </div><!-- End Recent Activity -->
+                </div><!-- End Recent Activity --> --}}
 
                 <!-- News & Updates Traffic -->
-                <div class="card">
+                {{-- <div class="card">
                     <div class="filter">
                         <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
@@ -344,7 +265,7 @@
                                 <p>Sit recusandae non aspernatur laboriosam. Quia enim eligendi sed ut harum...</p>
                             </div>
 
-                            {{-- <div class="post-item clearfix">
+                            <div class="post-item clearfix">
                                 <img src="assets/img/news-2.jpg" alt="">
                                 <h4><a href="#">Quidem autem et impedit</a></h4>
                                 <p>Illo nemo neque maiores vitae officiis cum eum turos elan dries werona nande...</p>
@@ -378,15 +299,95 @@
                                 <img src="assets/img/news-5.jpg" alt="">
                                 <h4><a href="#">Et dolores corrupti quae illo quod dolor</a></h4>
                                 <p>Odit ut eveniet modi reiciendis. Atque cupiditate libero beatae dignissimos eius...</p>
-                            </div> --}}
+                            </div>
 
                         </div><!-- End sidebar recent posts-->
 
                     </div>
-                </div><!-- End News & Updates -->
+                </div><!-- End News & Updates --> --}}
 
             </div><!-- End Right side columns -->
 
+        </div>
+        <div class="row">
+            <!-- customer-area -->
+            <div class="col-12">
+
+                <div class="card">
+
+                    <div class="card-body">
+                        <h5 class="card-title">Customer Area <span>/Today</span></h5>
+
+                        <!-- id for set map customer area -->
+                        <div id="map" style="height: 600px; "></div>
+
+                        @include('library.leaflet-ploating')
+                        <!-- End Line Chart -->
+
+                    </div>
+
+                </div>
+            </div><!-- End customer-area -->
+        </div>
+
+        <div class="row">
+            <!-- recent-distribution -->
+            <div class="col-12">
+                <div class="card recent-sales overflow-auto">
+
+                    <div class="filter">
+                        <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                            <li class="dropdown-header text-start">
+                                <h6>Filter</h6>
+                            </li>
+
+                            <li><a class="dropdown-item" href="#">Today</a></li>
+                            <li><a class="dropdown-item" href="#">This Month</a></li>
+                            <li><a class="dropdown-item" href="#">This Year</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="card-body">
+                        <h5 class="card-title">Recent Distribution <span>| Today</span></h5>
+
+                        <table class="table table-borderless datatable">
+                            <thead>
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Pelanggan</th>
+                                    <th scope="col">Edisi</th>
+                                    <th scope="col">Kode kurir</th>
+                                    <th scope="col">Terakhir diperbarui</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($recentDistributions as $distribution)
+                                    <tr>
+                                        <th scope="row"><a href="#">#{{ $distribution->id }}</a></th>
+                                        <td>{{ $distribution->customer->customer_name }}</td>
+                                        <td>Edisi {{ $distribution->customer->newspaper_code }}</td>
+                                        <td>{{ $distribution->distribution->courier_code }}</td>
+                                        <td>{{ $distribution->updated_at }}</td>
+                                        <td>
+                                            @if ($distribution->status == 200)
+                                                <span class="badge bg-success">sampai</span>
+                                            @elseif($distribution->status == 201)
+                                                <span class="badge bg-primary">menunggu</span>
+                                            @else
+                                                <span class="badge bg-warning">diperjalanan</span>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+
+                    </div>
+
+                </div>
+            </div><!-- End recent-distribution -->
         </div>
 
         @include('layouts.credits')
