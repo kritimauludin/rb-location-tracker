@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('customer_code', 100)->unique();
             $table->string('newspaper_code', 100);
-            $table->string('customer_name', 100);
+            $table->string('customer_name', 150);
             $table->string('email')->unique();
             $table->string('phone_number', 14);
             $table->date('join_date');

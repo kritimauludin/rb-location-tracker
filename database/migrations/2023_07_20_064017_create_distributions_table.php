@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('distributions', function (Blueprint $table) {
             $table->id();
-            $table->string('distribution_code')->unique();
-            $table->string('admin_code');
-            $table->string('courier_code');
+            $table->string('distribution_code', 100)->unique();
+            $table->string('admin_code', 100);
+            $table->string('courier_code', 100);
             $table->integer('total_newspaper')->default(0);
             $table->timestamps();
         });
