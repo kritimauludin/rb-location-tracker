@@ -21,7 +21,7 @@ class UserController extends Controller
     }
 
     public function edit(User $user) {
-        $roles  = Role::where('id', '!=', '4')->get();
+        $roles  = Role::where('id', '!=', '4')->where('id', '!=', '1')->get();
         return view('user.update', [
             'user' => $user,
             'roles' => $roles
