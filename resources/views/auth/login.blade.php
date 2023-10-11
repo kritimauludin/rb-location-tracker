@@ -56,7 +56,7 @@
                                     <button class="btn btn-primary w-100" type="submit">Login</button>
                                 </div>
                                 <div class="col-12">
-                                    <p class="small mb-0">Don't have account for courier? <a
+                                    <p class="small mb-0">Kurir Radar Bogor? <a
                                             href="{{ route('register') }}">{{ __('Register') }}</a></p>
                                 </div>
                             </form>

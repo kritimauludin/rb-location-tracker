@@ -23,16 +23,24 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('12345678')
         ]);
         \App\Models\User::factory()->create([
+            'user_code' => 'A161121',
             'name' => 'Akun admin',
             'email' => 'admin@gmail.com',
             'role_id' => 4,
             'password' => Hash::make('12345678')
         ]);
         \App\Models\User::factory()->create([
+            'user_code' => 'C161121',
             'name' => 'Akun kurir',
             'email' => 'kurir@gmail.com',
-            'role_id' => 4,
+            'role_id' => 3,
             'password' => Hash::make('12345678')
+        ]);
+
+        \App\Models\Newspaper::factory()->create([
+            'newspaper_code' => 'NS202310091',
+            'edition' => 'Koran Harian',
+            'description' => 'Koran terbit harian'
         ]);
 
         $this->call(RoleSeeder::class);
