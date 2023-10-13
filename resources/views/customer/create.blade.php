@@ -14,6 +14,15 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Tambah Pelanggan</h5>
+                        {{-- alert --}}
+                        @if (session()->has('success'))
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                <i class="bi bi-check-circle me-1"></i>
+                                {{ session('success') }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            </div>
+                        @endif
 
                         <!-- General Form Elements -->
                         <form action="/customer" method="POST" enctype="multipart/form-data">
@@ -31,7 +40,7 @@
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="form-group mb-3">
-                                                <input type="hidden" id="newspaper_code" name="newspaper_code">
+                                                <input type="hidden" id="newspaper_code" name="newspaper_code" value="{{ old('newspaper_code') }}">
                                                 <input type="text" id="edition" name="edition"
                                                      placeholder="Jenis koran (auto)"
                                                     value="{{ old('edition') }}" class="form-control @error('edition') is-invalid @enderror" readonly required>
@@ -108,16 +117,16 @@
                                     </div>
                                     <div class="form-group mb-3">
                                         <input type="text" id="latitude" name="latitude"
-                                            placeholder="Titik latitude (auto / isi sendiri)"
-                                            value="{{ old('latitude') }}" class="form-control @error('latitude') is-invalid @enderror" required>
+                                            placeholder="Titik latitude (auto)"
+                                            value="{{ old('latitude') }}" class="form-control @error('latitude') is-invalid @enderror" required readonly>
                                         @error('latitude')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
                                     </div>
                                     <div class="form-group mb-3">
                                         <input type="text" id="longitude" name="longitude"
-                                             placeholder="Titik longitude (auto / isi sendiri)"
-                                            value="{{ old('longitude') }}" class="form-control @error('longitude') is-invalid @enderror" required>
+                                             placeholder="Titik longitude (auto)"
+                                            value="{{ old('longitude') }}" class="form-control @error('longitude') is-invalid @enderror" required readonly>
                                         @error('longitude')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror

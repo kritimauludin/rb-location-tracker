@@ -55,4 +55,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function courier(){
         return $this->hasMany(Distribution::class, 'courier_code', 'user_code');
     }
+
+    public function customer_handle(){
+        return $this->hasMany(Customer::class,  'courier_code', 'user_code');
+    }
+
+
 }

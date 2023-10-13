@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('distribution_code', 100);
             $table->string('customer_code', 100);
             $table->integer('total')->default(1);
-            $table->timestamp('received_date')->nullable();
+            $table->timestamp('process_at')->nullable();
+            $table->timestamp('received_at')->nullable();
             $table->integer('status')->default(201); // 200 = terkirim, 201 = menunggu, 202 = diperjalanan
             $table->timestamps();
         });

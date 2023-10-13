@@ -12,6 +12,7 @@ class Customer extends Model
     protected $fillable = [
         'customer_code',
         'newspaper_code',
+        'courier_code',
         'customer_name',
         'email',
         'phone_number',
@@ -35,4 +36,10 @@ class Customer extends Model
     public function newspaper(){
         return $this->belongsTo(Newspaper::class, 'newspaper_code', 'newspaper_code');
     }
+
+    public function courier_handle(){
+        return $this->belongsTo(User::class, 'courier_code', 'user_code');
+    }
+
+
 }

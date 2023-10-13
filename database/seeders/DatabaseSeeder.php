@@ -24,14 +24,14 @@ class DatabaseSeeder extends Seeder
         ]);
         \App\Models\User::factory()->create([
             'user_code' => 'A161121',
-            'name' => 'Akun admin',
+            'name' => 'Admin 16112',
             'email' => 'admin@gmail.com',
             'role_id' => 4,
             'password' => Hash::make('12345678')
         ]);
         \App\Models\User::factory()->create([
-            'user_code' => 'C161121',
-            'name' => 'Akun kurir',
+            'user_code' => 'CR161121',
+            'name' => 'Rahmat',
             'email' => 'kurir@gmail.com',
             'role_id' => 3,
             'password' => Hash::make('12345678')

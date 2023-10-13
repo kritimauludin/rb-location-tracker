@@ -13,7 +13,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Data Pelanggan</h5>
-                        <div class="position-absolute end-0 top-0 m-4 mb-2">
+                        <div class="position-absolute end-0 top-0 p-3">
                             <a href="/customer/create" class="text-right h3"> <i
                                     class="bi bi-person-plus m-1"></i></a>
                             <a href="/customer/generate-report" target="_blank" class="text-right btn btn-outline-primary mb-2 h3">Generate Report</a>

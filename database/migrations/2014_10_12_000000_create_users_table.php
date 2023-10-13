@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name', 150);
             $table->string('phone_number', 14)->default('-');
             $table->text('address')->default('-');
+            $table->integer('shipping_handled')->default(0);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->integer('role_id', false, true)->default(4); //(4, tunggu promote), (1, superadmin), (2, admin), (3, kurir)

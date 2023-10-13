@@ -55,7 +55,7 @@ class CustomerController extends Controller
 
         Customer::create($validCustomer);
 
-        return redirect('/customer')->with('success', 'Pelanggan berhasil ditambahkan !');
+        return redirect('/customer/create')->with('success', 'Pelanggan berhasil ditambahkan !');
     }
 
     /**

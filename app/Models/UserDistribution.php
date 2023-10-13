@@ -13,7 +13,8 @@ class UserDistribution extends Model
         'distribution_code',
         'customer_code',
         'total',
-        'recived_date',
+        'process_at',
+        'recived_at',
         'status'
     ];
 

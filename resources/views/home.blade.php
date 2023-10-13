@@ -369,14 +369,21 @@
                                         <td>{{ $distribution->customer->customer_name }}</td>
                                         <td>Edisi {{ $distribution->customer->newspaper_code }}</td>
                                         <td>{{ $distribution->distribution->courier_code }}</td>
-                                        <td>{{ $distribution->updated_at }}</td>
+                                        <td>
+                                            @if ($distribution->status == 200)
+                                                {{ $distribution->received_date }}
+                                            @elseif($distribution->status == 201)
+                                                {{ $distribution->created_at }}
+                                            @else
+                                                {{ $distribution->updated_at }}
+                                            @endif</td>
                                         <td>
                                             @if ($distribution->status == 200)
                                                 <span class="badge bg-success">sampai</span>
                                             @elseif($distribution->status == 201)
-                                                <span class="badge bg-primary">menunggu</span>
+                                                <span class="badge bg-primary">dibawa kurir</span>
                                             @else
-                                                <span class="badge bg-warning">diperjalanan</span>
+                                                <span class="badge bg-warning">menuju lokasi</span>
                                             @endif
                                         </td>
                                     </tr>

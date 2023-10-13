@@ -34,7 +34,7 @@
                                         <th scope="col">Nama Pengguna</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Tgl. Terdaftar</th>
-                                        <th scope="col">Role</th>
+                                        <th scope="col">Role & Cakupan</th>
                                         <th scope="col">Aksi</th>
                                     </tr>
                                 </thead>
@@ -46,11 +46,19 @@
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
                                             <td>{{ $user->created_at }}</td>
+                                            @if ($user->role_id != 3)
+                                                <td>
+                                                    {{ $user->role->role_name}}
+                                                </td>
+                                            @else
+                                                <td>
+                                                    {{ $user->role->role_name. ' - '. count($user->customer_handle) . ' Pelanggan'}}
+                                                </td>
+                                            @endif
                                             <td>
-                                                {{ $user->role->role_name }}
-                                            </td>
-                                            <td>
-                                                <a href="/user/{{$user->user_code}}" onclick="return alert('Fitur dalam pengembangan !');"> <i class="bi bi-eye m-1"></i></a>
+                                                @if ($user->role->role_name == 'Kurir')
+                                                    <a href="/user/{{$user->user_code}}"> <i class="bi bi-eye m-1"></i></a>
+                                                @endif
                                                 <a href="/user/{{$user->user_code}}/edit"> <i class="bi bi-pen m-1"></i></a>
                                                 <form action="/user/{{ $user->user_code }}" method="POST" class="d-inline">
                                                     @method('DELETE')

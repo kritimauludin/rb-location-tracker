@@ -298,10 +298,7 @@
                         <span>Dashboard</span>
                     </a>
                 </li><!-- End Dashboard Nav -->
-                @endif
 
-                {{-- superadmin role --}}
-                @if (Auth::user()->role_id == 1)
                 <li class="nav-item">
                     <a class="nav-link collapsed" data-bs-target="#users-nav" data-bs-toggle="collapse"
                         href="#">
@@ -321,6 +318,7 @@
                         </li> --}}
                     </ul>
                 </li><!-- End users Nav -->
+
                 @endif
 
                 @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)

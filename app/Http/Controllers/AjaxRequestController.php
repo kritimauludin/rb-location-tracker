@@ -44,4 +44,14 @@ class AjaxRequestController extends Controller
 
         return json_encode($code);
     }
+
+    public function addCourierHandle(Request $request) {
+        Customer::where('customer_code', $request->customerCode)->update(['courier_code' => $request->courierCode, 'updated_at' => date("Y-m-d H:i:s")]);
+        return true;
+    }
+
+    public function unhandleCourier(Request $request) {
+        Customer::where('customer_code', $request->customerCode)->update(['courier_code' => null, 'updated_at' => date("Y-m-d H:i:s")]);
+        return redirect()->back();
+    }
 }
