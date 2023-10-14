@@ -79,12 +79,12 @@
                                         <div class="d-inline" id="duration[{{ $loop->iteration - 1 }}]"></div>
                                         <div class="d-inline" id="distance[{{ $loop->iteration - 1 }}]"></div> |
                                         @if ($distribution->status == 200)
-                                        <span class="badge bg-success">Telah Sampai</span>
-                                    @elseif($distribution->status == 201)
-                                        <span class="badge bg-primary ">Menunggu</span>
-                                    @else
-                                        <span class="badge bg-warning ">Diperjalanan</span>
-                                    @endif
+                                                <span class="badge bg-success">sampai</span>
+                                            @elseif($distribution->status == 201)
+                                                <span class="badge bg-warning">menuju lokasi</span>
+                                            @else
+                                                <span class="badge bg-primary">dibawa kurir</span>
+                                            @endif
                                         <hr>
                                         <a target="blank" id="direction[{{ $loop->iteration - 1 }}]" class="mr-3"
                                             href="#"
@@ -95,11 +95,11 @@
                                     <div class="cta-section">
                                         <div class="mt-3 fw-bold">{{ $distribution->total }} Koran</div>
 
-                                        @if ($distribution->status == 202)
+                                        @if ($distribution->status == 201)
                                             <a href="/distribution/update-status?id={{ $distribution->id }}&status=finish"
                                                 onclick="return confirm(`Distribusi ke {{ $distribution->customer->customer_name }} telah selesai?`);"
                                                 class="btn btn-dark btn-sm">Finish</a>
-                                        @elseif($distribution->status == 201)
+                                        @elseif($distribution->status == 202)
                                             <a href="/distribution/update-status?id={{ $distribution->id }}&status=process"
                                                 onclick="return confirm(`Proses distribusi ke {{ $distribution->customer->customer_name }}?`);"
                                                 class="btn btn-dark btn-sm">Process</a>

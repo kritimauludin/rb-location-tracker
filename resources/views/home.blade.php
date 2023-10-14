@@ -332,26 +332,13 @@
 
         <div class="row">
             <!-- recent-distribution -->
-            <div class="col-12">
+            <div class="col-12" id="recent-distribution">
                 <div class="card recent-sales overflow-auto">
-
-                    <div class="filter">
-                        <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                            <li class="dropdown-header text-start">
-                                <h6>Filter</h6>
-                            </li>
-
-                            <li><a class="dropdown-item" href="#">Today</a></li>
-                            <li><a class="dropdown-item" href="#">This Month</a></li>
-                            <li><a class="dropdown-item" href="#">This Year</a></li>
-                        </ul>
-                    </div>
 
                     <div class="card-body">
                         <h5 class="card-title">Recent Distribution <span>| Today</span></h5>
 
-                        <table class="table table-borderless datatable">
+                        <table class="table table-borderless">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -371,19 +358,19 @@
                                         <td>{{ $distribution->distribution->courier_code }}</td>
                                         <td>
                                             @if ($distribution->status == 200)
-                                                {{ $distribution->received_date }}
+                                                {{ $distribution->received_at }}
                                             @elseif($distribution->status == 201)
-                                                {{ $distribution->created_at }}
+                                                {{ $distribution->process_at }}
                                             @else
-                                                {{ $distribution->updated_at }}
+                                                {{ $distribution->created_at }}
                                             @endif</td>
                                         <td>
                                             @if ($distribution->status == 200)
                                                 <span class="badge bg-success">sampai</span>
                                             @elseif($distribution->status == 201)
-                                                <span class="badge bg-primary">dibawa kurir</span>
-                                            @else
                                                 <span class="badge bg-warning">menuju lokasi</span>
+                                            @else
+                                                <span class="badge bg-primary">dibawa kurir</span>
                                             @endif
                                         </td>
                                     </tr>
@@ -400,3 +387,18 @@
         @include('layouts.credits')
     </section>
 @endsection
+
+<script>
+    function refresh()
+    {
+        var div = $('#recent-distribution'),
+            divHtml = div.html();
+
+        div.html(divHtml);
+    }
+
+    setInterval(function()
+    {
+        refresh()
+    }, 5000);
+</script>

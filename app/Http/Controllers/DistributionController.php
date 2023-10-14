@@ -232,7 +232,7 @@ class DistributionController extends Controller
     public function updateStatus(Request $request)
     {
         if ($request->status == 'process') {
-            UserDistribution::where('id', $request->id)->update(['process_at' => date("Y-m-d H:i:s"), 'status' => 202]);
+            UserDistribution::where('id', $request->id)->update(['process_at' => date("Y-m-d H:i:s"), 'status' => 201]);
         } else if ($request->status == 'finish') {
             UserDistribution::where('id', $request->id)->update(['received_at' => date("Y-m-d H:i:s"), 'status' => 200]);
         } else {

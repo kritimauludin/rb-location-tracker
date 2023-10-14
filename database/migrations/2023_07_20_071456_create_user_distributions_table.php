@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('total')->default(1);
             $table->timestamp('process_at')->nullable();
             $table->timestamp('received_at')->nullable();
-            $table->integer('status')->default(201); // 200 = terkirim, 201 = menunggu, 202 = diperjalanan
+            $table->integer('status')->default(202); // 200 = terkirim, 201 = diperjalanan , 202 = menunggu
             $table->timestamps();
         });
     }
