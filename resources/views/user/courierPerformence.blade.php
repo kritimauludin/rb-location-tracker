@@ -72,7 +72,7 @@
                                                 <td>
                                                     @if ($distribution->status == 200)
                                                         <span class="badge bg-success">selesai</span>
-                                                    @elseif($distribution->status == 201)
+                                                    @elseif($distribution->status == 202)
                                                         <span class="badge bg-primary">dibawa kurir</span>
                                                     @else
                                                         <span class="badge bg-warning">menuju lokasi</span>
