@@ -37,15 +37,13 @@
     @endif
 
     <!-- leaflet CSS -->
-    <link
-      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-      rel="stylesheet"
-      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-      crossorigin=""
-    />
+    <link href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" rel="stylesheet"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      crossorigin="" />
 
     {{-- jquery --}}
-    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+        crossorigin="anonymous"></script>
 
 </head>
 
@@ -56,7 +54,7 @@
 
             <div class="d-flex align-items-center justify-content-between">
                 <a href="/home" class="logo d-flex align-items-center">
-                    <img src="{{asset('assets')}}/img/logo.png" alt="">
+                    <img src="{{ asset('assets') }}/img/logo.png" alt="">
                 </a>
                 <i class="bi bi-list toggle-sidebar-btn"></i>
             </div><!-- End Logo -->
@@ -72,13 +70,14 @@
 
                     <li class="nav-item dropdown p-2">
 
-                        <div class="spinner-grow text-success text-sm" style="width: 10px; height: 10px;" role="status">
+                        <div class="spinner-grow text-success text-sm" style="width: 10px; height: 10px;"
+                            role="status">
                             <span class="visually-hidden">Not Problem Detected...</span>
-                          </div>
+                        </div>
 
                     </li><!-- End spinner grow Nav -->
 
-                    <li class="nav-item dropdown">
+                    {{-- <li class="nav-item dropdown">
 
                         <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                             <i class="bi bi-bell"></i>
@@ -88,7 +87,8 @@
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
                             <li class="dropdown-header">
                                 You have 4 new notifications
-                                <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+                                <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View
+                                        all</span></a>
                             </li>
                             <li>
                                 <hr class="dropdown-divider">
@@ -151,9 +151,9 @@
 
                         </ul><!-- End Notification Dropdown Items -->
 
-                    </li><!-- End Notification Nav -->
+                    </li><!-- End Notification Nav --> --}}
 
-                    <li class="nav-item dropdown">
+                    {{-- <li class="nav-item dropdown">
 
                         <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
                             <i class="bi bi-chat-left-text"></i>
@@ -163,7 +163,8 @@
                         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
                             <li class="dropdown-header">
                                 You have 3 new messages
-                                <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+                                <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View
+                                        all</span></a>
                             </li>
                             <li>
                                 <hr class="dropdown-divider">
@@ -171,7 +172,8 @@
 
                             <li class="message-item">
                                 <a href="#">
-                                    <img src="{{asset('assets')}}/img/messages-1.jpg" alt="" class="rounded-circle">
+                                    <img src="{{ asset('assets') }}/img/messages-1.jpg" alt=""
+                                        class="rounded-circle">
                                     <div>
                                         <h4>Maria Hudson</h4>
                                         <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
@@ -185,7 +187,8 @@
 
                             <li class="message-item">
                                 <a href="#">
-                                    <img src="{{asset('assets')}}/img/messages-2.jpg" alt="" class="rounded-circle">
+                                    <img src="{{ asset('assets') }}/img/messages-2.jpg" alt=""
+                                        class="rounded-circle">
                                     <div>
                                         <h4>Anna Nelson</h4>
                                         <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
@@ -199,7 +202,8 @@
 
                             <li class="message-item">
                                 <a href="#">
-                                    <img src="{{asset('assets')}}/img/messages-3.jpg" alt="" class="rounded-circle">
+                                    <img src="{{ asset('assets') }}/img/messages-3.jpg" alt=""
+                                        class="rounded-circle">
                                     <div>
                                         <h4>David Muldon</h4>
                                         <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
@@ -217,13 +221,17 @@
 
                         </ul><!-- End Messages Dropdown Items -->
 
-                    </li><!-- End Messages Nav -->
+                    </li><!-- End Messages Nav --> --}}
 
                     <li class="nav-item dropdown pe-3">
 
                         <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
                             data-bs-toggle="dropdown">
-                            <img src="{{asset('assets')}}/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+                            @if (is_null(auth()->user()->img_profile))
+                                <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+                            @else
+                                <img src="{{ asset('storage/' .  auth()->user()->img_profile) }}" alt="Profile" class="rounded-circle">
+                            @endif
                             <span class="d-none d-md-block dropdown-toggle ps-2">{{ Auth::user()->name }}</span>
                         </a><!-- End Profile Iamge Icon -->
 
@@ -237,7 +245,7 @@
                             </li>
 
                             <li>
-                                <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                                <a class="dropdown-item d-flex align-items-center" href="/my-profile">
                                     <i class="bi bi-person"></i>
                                     <span>My Profile</span>
                                 </a>
@@ -247,17 +255,7 @@
                             </li>
 
                             <li>
-                                <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                                    <i class="bi bi-gear"></i>
-                                    <span>Account Settings</span>
-                                </a>
-                            </li>
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-
-                            <li>
-                                <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                                <a class="dropdown-item d-flex align-items-center" target="_blank" href="https://drive.google.com/drive/folders/1eqD2rklpphsryWbihzyhtKnAuk_LCNlp?usp=sharing">
                                     <i class="bi bi-question-circle"></i>
                                     <span>Need Help?</span>
                                 </a>
@@ -268,12 +266,13 @@
 
                             <li>
                                 <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
+                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     <i class="bi bi-box-arrow-right"></i>
                                     <span> {{ __('Logout') }}</span>
                                 </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                    class="d-none">
                                     @csrf
                                 </form>
                             </li>
@@ -292,114 +291,114 @@
             <ul class="sidebar-nav" id="sidebar-nav">
 
                 @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
-                <li class="nav-item">
-                    <a class="nav-link @if (Route::has('home')) active @endif" href="{{route('home')}}">
-                        <i class="bi bi-grid"></i>
-                        <span>Dashboard</span>
-                    </a>
-                </li><!-- End Dashboard Nav -->
+                    <li class="nav-item">
+                        <a class="nav-link @if (Route::has('home')) active @endif"
+                            href="{{ route('home') }}">
+                            <i class="bi bi-grid"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li><!-- End Dashboard Nav -->
 
-                <li class="nav-item">
-                    <a class="nav-link collapsed" data-bs-target="#users-nav" data-bs-toggle="collapse"
-                        href="#">
-                        <i class="bi bi-menu-button-wide"></i><span>Pengguna App</span><i
-                            class="bi bi-chevron-down ms-auto"></i>
-                    </a>
-                    <ul id="users-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                        <li>
-                            <a href="/user">
-                                <i class="bi bi-circle"></i><span>Lihat Pengguna</span>
-                            </a>
-                        </li>
-                        {{-- <li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" data-bs-target="#users-nav" data-bs-toggle="collapse"
+                            href="#">
+                            <i class="bi bi-menu-button-wide"></i><span>Pengguna App</span><i
+                                class="bi bi-chevron-down ms-auto"></i>
+                        </a>
+                        <ul id="users-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                            <li>
+                                <a href="/user">
+                                    <i class="bi bi-circle"></i><span>Lihat Pengguna</span>
+                                </a>
+                            </li>
+                            {{-- <li>
                             <a href="users-accordion.html">
                                 <i class="bi bi-circle"></i><span>Tambah Pengguna</span>
                             </a>
                         </li> --}}
-                    </ul>
-                </li><!-- End users Nav -->
-
+                        </ul>
+                    </li><!-- End users Nav -->
                 @endif
 
                 @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
-                <li class="nav-item">
-                    <a class="nav-link collapsed" data-bs-target="#newspapers-nav" data-bs-toggle="collapse"
-                        href="{{route('newspaper.index')}}">
-                        <i class="bi bi-newspaper"></i><span>Data Koran</span><i
-                            class="bi bi-chevron-down ms-auto"></i>
-                    </a>
-                    <ul id="newspapers-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                        <li>
-                            <a href="{{route('newspaper.index')}}">
-                                <i class="bi bi-circle"></i><span>Lihat Koran</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{route('newspaper.create')}}">
-                                <i class="bi bi-circle"></i><span>Tambah Koran</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li><!-- End newspapers Nav -->
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" data-bs-target="#newspapers-nav" data-bs-toggle="collapse"
+                            href="{{ route('newspaper.index') }}">
+                            <i class="bi bi-newspaper"></i><span>Data Koran</span><i
+                                class="bi bi-chevron-down ms-auto"></i>
+                        </a>
+                        <ul id="newspapers-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                            <li>
+                                <a href="{{ route('newspaper.index') }}">
+                                    <i class="bi bi-circle"></i><span>Lihat Koran</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('newspaper.create') }}">
+                                    <i class="bi bi-circle"></i><span>Tambah Koran</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li><!-- End newspapers Nav -->
 
-                <li class="nav-item">
-                    <a class="nav-link collapsed" data-bs-target="#customers-nav" data-bs-toggle="collapse"
-                        href="{{route('customer.index')}}">
-                        <i class="bi bi-person-square"></i><span>Data Pelanggan</span><i
-                            class="bi bi-chevron-down ms-auto"></i>
-                    </a>
-                    <ul id="customers-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                        <li>
-                            <a href="{{route('customer.index')}}">
-                                <i class="bi bi-circle"></i><span>Lihat Pelanggan</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{route('customer.create')}}">
-                                <i class="bi bi-circle"></i><span>Tambah Pelanggan</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li><!-- End customers Nav -->
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" data-bs-target="#customers-nav" data-bs-toggle="collapse"
+                            href="{{ route('customer.index') }}">
+                            <i class="bi bi-person-square"></i><span>Data Pelanggan</span><i
+                                class="bi bi-chevron-down ms-auto"></i>
+                        </a>
+                        <ul id="customers-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                            <li>
+                                <a href="{{ route('customer.index') }}">
+                                    <i class="bi bi-circle"></i><span>Lihat Pelanggan</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('customer.create') }}">
+                                    <i class="bi bi-circle"></i><span>Tambah Pelanggan</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li><!-- End customers Nav -->
 
-                <li class="nav-item">
-                    <a class="nav-link collapsed" data-bs-target="#distributions-nav" data-bs-toggle="collapse"
-                        href="{{route('distribution.index')}}">
-                        <i class="bi bi-calendar-plus"></i><span>Data Distribusi</span><i
-                            class="bi bi-chevron-down ms-auto"></i>
-                    </a>
-                    <ul id="distributions-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                        <li>
-                            <a href="{{route('distribution.index')}}">
-                                <i class="bi bi-circle"></i><span>Lihat Distribusi</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{route('distribution.create')}}">
-                                <i class="bi bi-circle"></i><span>Tambah Distribusi</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li><!-- End distribution Nav -->
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" data-bs-target="#distributions-nav" data-bs-toggle="collapse"
+                            href="{{ route('distribution.index') }}">
+                            <i class="bi bi-calendar-plus"></i><span>Data Distribusi</span><i
+                                class="bi bi-chevron-down ms-auto"></i>
+                        </a>
+                        <ul id="distributions-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                            <li>
+                                <a href="{{ route('distribution.index') }}">
+                                    <i class="bi bi-circle"></i><span>Lihat Distribusi</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('distribution.create') }}">
+                                    <i class="bi bi-circle"></i><span>Tambah Distribusi</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li><!-- End distribution Nav -->
                 @endif
 
 
                 {{-- courier role --}}
                 @if (Auth::user()->role_id == 3)
                     <li class="nav-item">
-                        <a class="nav-link collapsed" data-bs-target="#distributions-today-nav" data-bs-toggle="collapse"
-                            href="{{route('distribution.index')}}">
+                        <a class="nav-link collapsed" data-bs-target="#distributions-today-nav"
+                            data-bs-toggle="collapse" href="{{ route('distribution.index') }}">
                             <i class="bi bi-cursor"></i><span>Data Distribusi</span><i
                                 class="bi bi-chevron-down ms-auto"></i>
                         </a>
                         <ul id="distributions-today-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                             <li>
-                                <a href="{{route('distribution.today')}}">
+                                <a href="{{ route('distribution.today') }}">
                                     <i class="bi bi-circle"></i><span>Lihat Distribusi Hari Ini</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="{{route('distribution.report')}}">
+                                <a href="{{ route('distribution.report') }}">
                                     <i class="bi bi-circle"></i><span>Rekap Distribusi Saya</span>
                                 </a>
                             </li>

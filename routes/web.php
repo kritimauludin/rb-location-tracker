@@ -28,6 +28,8 @@ Auth::routes([
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('verified');
 Route::get('/my-profile', [App\Http\Controllers\HomeController::class, 'myProfile'])->name('my-profile')->middleware('verified');
+Route::post('/change-password', [App\Http\Controllers\HomeController::class, 'updatePassword'])->name('update-password');
+Route::put('/update-profile/{user:user_code}', [App\Http\Controllers\HomeController::class, 'updateProfile'])->name('update-profile');
 
 Route::post('/promote', [UserController::class, 'promote'])->middleware('auth');
 
