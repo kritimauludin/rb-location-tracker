@@ -25,12 +25,19 @@ class UserController extends Controller
     }
 
     //controller ini hanya untuk melihat kinerja kurir dan generate report
-    public function show(User $user){
+    public function show(User $user, Request $request){
         if ($user->role_id != 3) {
             return abort(403, 'Anda tidak memiliki akses kehalaman ini');
         }
 
-        $distributions = Distribution::where('courier_code', $user->user_code)->with(['user_distribution'])->get();
+        if (isset($request->date_start)) {
+            $distributions = Distribution::where('courier_code', $user->user_code)->whereDate('created_at', '>=', $request->date_start)
+                ->whereDate('created_at', '<=', $request->date_end)->with(['user_distribution'])
+                ->get();
+        } else {
+            $distributions = Distribution::where('courier_code', $user->user_code)->with(['user_distribution'])->get();
+        }
+
 
         return view('user.courierPerformence', [
             'distributions' => $distributions,
@@ -86,8 +93,13 @@ class UserController extends Controller
     }
 
     public function printPerformence(Request $request){
-        $courierPerformence = Distribution::where('courier_code', $request->courier_code)->with(['user_distribution'])->get();
-        // dd($courierPerformence);
+        if (isset($request->date_start)) {
+            $courierPerformence = Distribution::where('courier_code', $request->courier_code)->whereDate('created_at', '>=', $request->date_start)
+                ->whereDate('created_at', '<=', $request->date_end)->with(['user_distribution'])
+                ->get();
+        } else {
+            $courierPerformence = Distribution::where('courier_code', $request->courier_code)->with(['user_distribution'])->get();
+        }
         $pdf = Pdf::loadView('user.print-performence', [
             'courierPerformence' => $courierPerformence->toArray()
         ]);

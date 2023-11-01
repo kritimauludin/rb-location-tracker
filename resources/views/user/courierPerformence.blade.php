@@ -9,13 +9,40 @@
     <section class="section">
         <div class="row">
             <div class="col-lg-12">
+                {{-- card filter --}}
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Pilih Range Tanggal</h5>
+                        <div class="position-absolute end-0 top-0 p-3">
+                            <a href="/courier/print-performence?courier_code={{$courierData->user_code}}@if (isset($_GET['date_start']))&date_start={{$_GET['date_start'] . '&date_end='. $_GET['date_end']}}@endif"
+                                target="_blank" class=" text-right btn btn-outline-primary d-inline">Export Now</a>
+                        </div>
+
+                        @if (isset($_GET['date_start']))
+                            <h3 class="card-title">Filter kinerja kurir & Report Pengiriman <strong>{{$_GET['date_start'] . ' sampai '. $_GET['date_end']}} </strong></h3>
+                        @else
+                            <form action="/user/{{$courierData->user_code}}">
+                                <div class="row">
+                                    <div class="col-lg-4 mb-2">
+                                        <label for="date_start" class="text-xs">Tanggal Mulai</label>
+                                        <input type="date" name="date_start" id="date_start" required class="form-control" value="{{old('date_start')}}">
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <label for="date_start" class="text-xs">Tanggal Akhir</label>
+                                        <input type="date" name="date_end" id="date_end" required class="form-control" value="{{old('date_end')}}">
+                                    </div>
+                                    <div class="col-lg-4 mt-4">
+                                        <button type="submit" class="btn btn-outline-primary">Filter</button>
+                                    </div>
+                                </div>
+                            </form>
+                        @endif
+                    </div>
+                </div>
 
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">{{ $courierData->user_code. ' - '. $courierData->name}}</h5>
-                        <div class="position-absolute end-0 top-0 p-3">
-                            <a href="/courier/print-performence?courier_code={{$courierData->user_code}}" target="_blank" class="text-right btn btn-outline-primary mb-2 h3">Generate Report</a>
-                        </div>
 
                         {{-- alert --}}
                         @if (session()->has('success'))
@@ -44,11 +71,16 @@
                                 <tbody>
                                     @php
                                         $noUrut = 1;
+                                        $nowDate = \Carbon\Carbon::now();
                                     @endphp
                                     @for ($i = 0; $i < count($distributions); $i++)
                                         @foreach ($distributions[$i]->user_distribution as $distribution)
                                             @php
-                                                if (is_null($distribution->process_at) || is_null($distribution->received_at)) {
+                                                if (is_null($distribution->process_at) || is_null($distribution->received_at) && $nowDate->gt($distribution->created_at)){
+                                                    $startTime = 'Gagal Kirim';
+                                                    $finishTime = 'Gagal Kirim';
+                                                    $totalDuration = 'Gagal Kirim';
+                                                }else if(is_null($distribution->process_at) || is_null($distribution->received_at)) {
                                                     $startTime = 'Waiting Data';
                                                     $finishTime = 'Waiting Data';
                                                     $totalDuration = 'Waiting Data';
@@ -75,6 +107,8 @@
                                                 <td>
                                                     @if ($distribution->status == 200)
                                                         <span class="badge bg-success">selesai</span>
+                                                    @elseif($distribution->status == 202 && $nowDate->gt($distribution->created_at))
+                                                        <span class="badge bg-danger">gagal kirim</span>
                                                     @elseif($distribution->status == 202)
                                                         <span class="badge bg-primary">dibawa kurir</span>
                                                     @else
