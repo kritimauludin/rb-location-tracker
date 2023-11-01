@@ -38,7 +38,7 @@
                                         <th scope="col">Kode Distribusi</th>
                                         <th scope="col">Tanggal</th>
                                         <th scope="col">Nama Kurir</th>
-                                        <th scope="col">Total Koran</th>
+                                        <th scope="col">Koran Dibawa</th>
                                         <th scope="col">Aksi</th>
                                     </tr>
                                 </thead>

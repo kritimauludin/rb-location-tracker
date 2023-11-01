@@ -14,7 +14,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ $courierData->user_code. ' - '. $courierData->name}}</h5>
                         <div class="position-absolute end-0 top-0 p-3">
-                            <a href="/customer/generate-report" target="_blank" class="text-right btn btn-outline-primary mb-2 h3">Generate Report</a>
+                            <a href="/courier/print-performence?courier_code={{$courierData->user_code}}" target="_blank" class="text-right btn btn-outline-primary mb-2 h3">Generate Report</a>
                         </div>
 
                         {{-- alert --}}
@@ -42,6 +42,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @php
+                                        $noUrut = 1;
+                                    @endphp
                                     @for ($i = 0; $i < count($distributions); $i++)
                                         @foreach ($distributions[$i]->user_distribution as $distribution)
                                             @php
@@ -57,7 +60,7 @@
                                             @endphp
 
                                             <tr>
-                                                <th scope="row">{{ $loop->iteration }}</th>
+                                                <th scope="row">{{ $noUrut++; }}</th>
                                                 <td>{{ date('d-m-Y', strtotime($distribution->created_at)) }}</td>
                                                 <td>{{ $distribution->customer->customer_name }}</td>
                                                 @if (is_null($distribution->process_at) || is_null($distribution->received_at))

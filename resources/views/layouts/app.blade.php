@@ -162,7 +162,11 @@
                         <ul id="users-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                             <li>
                                 <a href="/user">
-                                    <i class="bi bi-circle"></i><span>Lihat Pengguna</span>
+                                    @if (Auth::user()->role_id == 1)
+                                        <i class="bi bi-circle"></i><span>Lihat Pengguna</span>
+                                    @else
+                                        <i class="bi bi-circle"></i><span>Lihat Kurir</span>
+                                    @endif
                                 </a>
                             </li>
                             {{-- <li>

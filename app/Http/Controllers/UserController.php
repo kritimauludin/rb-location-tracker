@@ -6,6 +6,8 @@ use App\Models\Customer;
 use App\Models\Distribution;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\UserDistribution;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -14,7 +16,7 @@ class UserController extends Controller
         if(auth()->user()->role_id == 1){
             $users  = User::where('role_id', '!=', '1')->get();
         } elseif(auth()->user()->role_id == 2){
-            $users  = User::where('role_id', '!=', '1')->where('role_id', 3)->with('customer_handle')->get();
+            $users  = User::where('role_id', '!=', '1')->where('role_id','!=', 2)->with('customer_handle')->get();
         }
 
         return view('user.users', [
@@ -37,7 +39,12 @@ class UserController extends Controller
     }
 
     public function edit(User $user) {
-        $roles  = Role::where('id', '!=', '4')->where('id', '!=', '1')->get();
+        if(auth()->user()->role_id == 1){
+            $roles  = Role::where('id', '!=', '4')->where('id', '!=', '1')->get();
+        } elseif(auth()->user()->role_id == 2){
+            $roles  = Role::where('id', 3)->get();
+        }
+
         $data = [
             'user' => $user,
             'roles' => $roles
@@ -69,7 +76,21 @@ class UserController extends Controller
         return redirect('/user')->with('success', 'Data pengguna berhasil diubah !');
     }
     public function destroy(User $user){
+        $customers = Customer::where('courier_code', $user->user_code)->get();
+        foreach ($customers as $customer) {
+            Customer::where('id', $customer->id)->update(['courier_code' => null]);
+        }
         User::where('user_code', $user->user_code)->delete();
+
         return redirect('/user')->with('success', 'Pengguna berhasil dihapus!');
+    }
+
+    public function printPerformence(Request $request){
+        $courierPerformence = Distribution::where('courier_code', $request->courier_code)->with(['user_distribution'])->get();
+        // dd($courierPerformence);
+        $pdf = Pdf::loadView('user.print-performence', [
+            'courierPerformence' => $courierPerformence->toArray()
+        ]);
+        return $pdf->stream('Courier Performence '.date('d-m-y').'pdf');
     }
 }

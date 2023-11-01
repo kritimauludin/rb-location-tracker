@@ -38,7 +38,7 @@
 <table width="100%" style="font-size: 12px;">
 	<tr>
 		<td><p>Kode Kurir : <?= $distribution->courier->user_code;?></p></td>
-		<td><p>Tgl. Distribusi : <?= $distribution->courier->name;?></p></td>
+		<td><p>Nama Kurir : <?= $distribution->courier->name;?></p></td>
 		<td><p>No. Telpon : <?= $distribution->courier->phone_number;?></p></td>
 		<td><p>Email : <?= $distribution->courier->email;?></p></td>
 	</tr>

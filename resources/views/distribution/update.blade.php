@@ -70,10 +70,10 @@
                             </div>
                             @foreach ($distribution->user_distribution as $distribution)
                                 <div class="row">
-                                    <div class="col-lg-2"></div>
-                                    <div class="col-lg-2 text-center">
+                                    <div class="col-lg-3"></div>
+                                    {{-- <div class="col-lg-2 text-center">
                                         <button type="button" class="btn btn-outline-primary" onclick="changeCustomer({{$distribution->id}})" style="display: block;">Ganti Pelanggan</button>
-                                    </div>
+                                    </div> --}}
                                     <div class="col-lg-4">
                                         <div class="form-group mb-3">
                                             <input type="hidden" id="id[{{$distribution->id}}]" name="id[{{$distribution->id}}]"  value="{{$distribution->id}}">
