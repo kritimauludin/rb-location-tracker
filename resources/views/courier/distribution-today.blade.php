@@ -78,7 +78,7 @@
                                         <h5 class="card-title fw-bold">{{ $distribution->customer->customer_name }}</h5>
                                         <div class="d-inline" id="duration[{{ $loop->iteration - 1 }}]"></div>
                                         <div class="d-inline" id="distance[{{ $loop->iteration - 1 }}]"></div> |
-                                        @if ($distribution->status == 200)
+                                            @if ($distribution->status == 200)
                                                 <span class="badge bg-success">sampai</span>
                                             @elseif($distribution->status == 201)
                                                 <span class="badge bg-warning">menuju lokasi</span>
@@ -96,7 +96,8 @@
                                         <div class="mt-3 fw-bold">{{ $distribution->total }} Koran</div>
 
                                         @if ($distribution->status == 201)
-                                            <a href="/distribution/update-status?id={{ $distribution->id }}&status=finish"
+                                            <a id="finish[{{ $loop->iteration - 1 }}]"
+                                                href="#"
                                                 onclick="return confirm(`Distribusi ke {{ $distribution->customer->customer_name }} telah selesai?`);"
                                                 class="btn btn-dark btn-sm">Finish</a>
                                         @elseif($distribution->status == 202)
@@ -157,6 +158,9 @@
                                     "https://www.google.com/maps/dir/?api=1&origin=" + courierLocation.lat + "," +
                                     courierLocation.lng + "&destination=" + customerLocation.lat + "," +
                                     customerLocation.lng + "&travelmode=driving&dir_action=navigate";
+
+                                document.getElementById("finish[" + index + "]").href="/distribution/update-status?id="+todayDistribution[index].id+"&status=finish&locationStamp="+courierLocation.lat + ","+
+                                    courierLocation.lng;
                                 document.getElementById("distance[" + index + "]").innerText = response.rows[0]
                                     .elements[0].distance.text;
                                 document.getElementById("duration[" + index + "]").innerText = response.rows[0]

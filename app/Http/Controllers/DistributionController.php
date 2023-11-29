@@ -223,7 +223,6 @@ class DistributionController extends Controller
             ->select('distribution_code', 'created_at', 'courier_code', 'total_newspaper')
             ->whereDate('created_at', Carbon::today())
             ->get();
-
         return view('courier.distribution-today', [
             'todayDistribution' => $todayDistribution
         ]);
@@ -234,7 +233,12 @@ class DistributionController extends Controller
         if ($request->status == 'process') {
             UserDistribution::where('id', $request->id)->update(['process_at' => date("Y-m-d H:i:s"), 'status' => 201]);
         } else if ($request->status == 'finish') {
-            UserDistribution::where('id', $request->id)->update(['received_at' => date("Y-m-d H:i:s"), 'status' => 200]);
+            UserDistribution::where('id', $request->id)->update(
+                [
+                    'received_at' => date("Y-m-d H:i:s"),
+                    'courier_last_stamp' => $request->locationStamp,
+                    'status' => 200
+                ]);
         } else {
             return 500;
         }

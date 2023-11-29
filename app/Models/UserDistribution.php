@@ -15,6 +15,7 @@ class UserDistribution extends Model
         'total',
         'process_at',
         'recived_at',
+        'courier_last_stamp',
         'status'
     ];
 

@@ -3,30 +3,6 @@
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
     crossorigin=""></script>
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.2.0/firebase-app.js";
-  import {
-    getDatabase,
-    ref,
-    set,
-    onValue,
-  } from "https://www.gstatic.com/firebasejs/9.2.0/firebase-database.js";
-
-  // Your web app's Firebase configuration
-
-  //new
-  const firebaseConfig = {
-    apiKey: "AIzaSyCsWbHlfkJ6EuB4jk6EPqaLsAAMlFDPVlc",
-    authDomain: "prak-sig-lts.firebaseapp.com",
-    databaseURL: "https://prak-sig-lts-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "prak-sig-lts",
-    storageBucket: "prak-sig-lts.appspot.com",
-    messagingSenderId: "959446042736",
-    appId: "1:959446042736:web:c0302dbf5c9a00c4898cb5"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-
   // create map
   const map = L.map("map").setView([-6.6061381, 106.801851], 12);
 
